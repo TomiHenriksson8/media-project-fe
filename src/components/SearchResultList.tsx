@@ -1,5 +1,4 @@
 import { SearchResult } from './SearchResult';
-import './SearchResultList.css'
 
 type User = {
     id: number;
@@ -22,7 +21,7 @@ type SearchResultsListProps = {
 
   const SearchResultsList: React.FC<SearchResultsListProps> = ({ results }) => {
     return (
-      <div className='results-list'>
+      <div className='results-list absolute z-10 w-80 flex flex-col shadow-custom rounded-lg mt-1 max-h-72 overflow-y-scroll'>
           {results.map((result, id: number) => {
               return <SearchResult result={result} key={id} />
           })}

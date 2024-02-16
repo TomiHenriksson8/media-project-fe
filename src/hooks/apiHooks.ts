@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
-import {MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
+import {Like, MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
 import {fetchData} from '../lib/functions';
 import {Credentials} from '../types/LocalTypes';
-import {LoginResponse, MediaResponse, UploadResponse, UserResponse} from '../types/MessageTypes';
+import {LoginResponse, MediaResponse, MessageResponse, UploadResponse, UserResponse} from '../types/messageTypes';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
@@ -90,7 +90,21 @@ const useUser = () => {
     options)
   };
 
-  return {getUserByToken, postUser};
+  const getUsernameAvailable = async (username: string) => {
+    const result = await fetchData<{available: boolean}>(
+      import.meta.env.VITE_AUTH_API + '/users/username/' + username
+    );
+    return result;
+  };
+
+  const getEmailAvailable = async (email: string) => {
+    const result = await fetchData<{available: boolean}>(
+      import.meta.env.VITE_AUTH_API + '/users/email/' + email
+    );
+    return result;
+  };
+
+  return {getUserByToken, postUser, getUsernameAvailable, getEmailAvailable};
 };
 
 const useAuthentication = () => {
@@ -132,5 +146,53 @@ const useFile = () => {
 }
 
 
+const useLike = () => {
+  const postLike = async (media_id: number, token: string) => {
+    // TODO: Send a POST request to /likes with object { media_id } and the token in the Authorization header.
+    const options: RequestInit = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({media_id})
+    }
+     return await fetchData<MessageResponse>(import.meta.env.VITE_MEDIA_API + '/likes',
+    options);
+  };
 
-export { useMedia, useUser, useAuthentication, useFile };
+  const deleteLike = async (like_id: number, token: string) => {
+    // TODO: Send a DELETE request to /likes/:like_id with the token in the Authorization header.
+    const options: RequestInit = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    }
+     return await fetchData<MessageResponse>(import.meta.env.VITE_MEDIA_API + '/likes/' + like_id ,
+    options);
+  };
+
+  const getCountByMediaId = async (media_id: number) => {
+    // TODO: Send a GET request to /likes/:media_id to get the number of likes.
+    return await fetchData<{count: number}>(import.meta.env.VITE_MEDIA_API + '/likes/' + media_id
+    );
+  };
+
+  const getUserLike = async (media_id: number, token: string) => {
+    // TODO: Send a GET request to /likes/bymedia/user/:media_id to get the user's like on the media.
+    const options: RequestInit = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    }
+     return await fetchData<Like>(import.meta.env.VITE_MEDIA_API + '/likes/bymedia/user/' + media_id ,
+    options);
+  };
+
+  return {postLike, deleteLike, getCountByMediaId, getUserLike};
+};
+
+
+export { useMedia, useUser, useAuthentication, useFile, useLike };

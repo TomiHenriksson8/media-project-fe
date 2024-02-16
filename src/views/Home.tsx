@@ -1,7 +1,10 @@
 import {MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
-import MediaRow from '../components/MediaRow';
+/* import MediaRow from '../components/MediaRow'; */
 import {useEffect, useState} from 'react';
 import {fetchData} from '../lib/functions';
+/* import MediaRow from './MediaRow'; // Ensure this component is compatible with the data structure */
+
+import MediaRow from '../components/MediaRow';
 
 const Home = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
@@ -29,28 +32,14 @@ const Home = () => {
 
   return (
     <>
-      <h2>My Media</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Thumbnail</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created</th>
-            <th>Size</th>
-            <th>Type</th>
-            <th>Owner</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mediaArray.map((item) => (
+      <div className="media-container flex flex-col items-center p-2">
+        {mediaArray.map((item) => (
             <MediaRow
               key={item.media_id}
               item={item}
             />
           ))}
-        </tbody>
-      </table>
+      </div>
     </>
   );
 };
