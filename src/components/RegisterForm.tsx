@@ -12,6 +12,7 @@ const RegisterForm = () => {
     try {
       if (usernameAvailable && emailAvailable) {
         await postUser(inputs);
+        console.log('do popup later')
       }
     } catch (error) {
       console.error(error);

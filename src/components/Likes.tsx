@@ -98,7 +98,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
 
   return (
     <div className="flex  flex-col gap-1" >
-      <button onClick={handleLike} className="text-lg p-3 mt-2  bg-gray-200 rounded-full">
+      <button onClick={handleLike} className="text-lg p-3 mt-2  bg-gray-200 rounded-full hover:bg-gray-300 ">
         {likeState.userLike ? (
           <FaHeart className="text-red-500" />
         ) : (

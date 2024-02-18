@@ -1,6 +1,7 @@
 import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
 import { MediaItemWithOwner } from "../types/DBTypes";
 import Likes from "../components/Likes";
+import Comments from "../components/Comments";
 
 
 const Post = () => {
@@ -20,8 +21,9 @@ const Post = () => {
           <img src="https://place-hold.it/320/240.jpg&text=Thumb2&fontsize=20" alt={item.title} className=" w-full h-auto rounded" />
           )}
       </div>
-      <div>
+      <div className="comment-like-container flex flex-row gap-2">
         <Likes  item={item}/>
+        <Comments item={item}/>
       </div>
       <p className="mt-4 text-center">{item.description}</p>
       <p className="text-sm text-gray-600 mt-2 text-center">Uploaded at: {new Date(item.created_at).toLocaleString('fi-FI')}, by: {item.username}</p>
