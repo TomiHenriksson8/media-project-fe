@@ -12,7 +12,7 @@ const MediaRow = (props: {
   return (
     <>
       <Link to='/post' state={item}>
-            <div className="media-item w-full max-w-96 mt-2 mb-2 p-5 bg-blue-200 shadow-custom flex flex-col items-center rounded-md" key={item.media_id}>
+            <div className="media-item w-full max-w-96 mt-2 mb-2 p-5 bg-blue-100 shadow-custom flex flex-col items-center rounded-md" key={item.media_id}>
               <div className="media-header w-full flex items-center mb-2">
                 {/* <img src={item.owner.profile_pic} alt="Owner" className="owner-image" /> */}
                 <img className="profile-icon w-10 rounded-full" src="https://place-hold.it/170x170.jpg&text=Pic2&fontsize=0" alt="Profile" />

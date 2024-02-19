@@ -53,6 +53,16 @@ type Comment = {
   created_at: Date;
 };
 
+type Notifications = {
+  notification_id: number;
+  user_id: number;
+  notification_type: 'COMMENT' | 'FOLLOW' | 'LIKE';
+  notification_content: string | null;
+  reference_id: number | null;
+  created_at: Date;
+  read_status: boolean;
+};
+
 type Like = {
   like_id: number;
   media_id: number;
@@ -122,6 +132,7 @@ export type {
   User,
   MediaItem,
   Comment,
+  Notifications,
   Like,
   Rating,
   Tag,

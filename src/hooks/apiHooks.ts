@@ -5,6 +5,7 @@ import {
   MediaItem,
   MediaItemWithOwner,
   User,
+  Notifications
 } from '../types/DBTypes';
 import {fetchData} from '../lib/functions';
 import {Credentials} from '../types/LocalTypes';
@@ -278,4 +279,104 @@ const useComment = () => {
   return {postComment, getCommentsByMediaId};
 };
 
-export {useMedia, useUser, useAuthentication, useFile, useLike, useComment};
+const useFollow = () => {
+  const postFollow = async (user_id: number, token: string) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user_id}),
+    };
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/follow/' + user_id,
+      options,
+    );
+    };
+
+    const deleteFollow = async (user_id: number, token: string) => {
+      const options = {
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+      return await fetchData<MessageResponse>(
+        import.meta.env.VITE_MEDIA_API + '/follow/' + user_id,
+        options,
+      );
+    };
+
+    const getFollowers = async (user_id: number) => {
+      return await fetchData(import.meta.env.VITE_MEDIA_API + '/follow/followers/' + user_id);
+    };
+
+    const getFollowing = async (user_id: number) => {
+      return await fetchData(import.meta.env.VITE_MEDIA_API + '/follow/following/' + user_id);
+    };
+
+    return {postFollow, deleteFollow, getFollowers, getFollowing};
+};
+
+
+const useNotification = () => {
+  const createCommentNotification = async (user_id: number, noti_content: string, ref_id: number, token: string) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user_id, noti_content, ref_id}),
+    };
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/notification/create/comment',
+      options,
+    );
+  };
+
+  const createLikeNotification = async (user_id: number, noti_content: string, ref_id: number, token: string) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user_id, noti_content, ref_id}),
+    };
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/notification/create/like',
+      options,
+    );
+  };
+
+  const createFollowNotification = async (user_id: number, noti_content: string, ref_id: number, token: string) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user_id, noti_content, ref_id}),
+    };
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/notification/create/follow',
+      options,
+    );
+  };
+
+  const getNotifications = async (user_id: number, token: string) => {
+    return await fetchData<Notifications[]>(import.meta.env.VITE_MEDIA_API + '/notification/get/' + user_id, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+  };
+
+
+
+  return {createCommentNotification, createLikeNotification, createFollowNotification, getNotifications};
+};
+
+export {useMedia, useUser, useAuthentication, useFile, useLike, useComment, useFollow, useNotification};
