@@ -3,12 +3,13 @@ import {useUserContext} from '../hooks/ContextHooks';
 import {useForm} from '../hooks/formHooks';
 import {useCommentStore} from '../store';
 import {MediaItemWithOwner} from '../types/DBTypes';
-import {useComment} from '../hooks/apiHooks';
+import {useComment, useNotification} from '../hooks/apiHooks';
 import { FaRegComment } from "react-icons/fa";
 
 const Comments = ({item}: {item: MediaItemWithOwner}) => {
   const {comments, setComments} = useCommentStore();
   const {user} = useUserContext();
+  const { createCommentNotification } = useNotification();
   const formRef = useRef<HTMLFormElement>(null);
   const {getCommentsByMediaId, postComment} = useComment();
   const [showComments, setShowComments] = useState(false);
@@ -22,6 +23,7 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
     }
     try {
       await postComment(inputs.comment_text, item.media_id, token);
+      createCommentNoti();
       await getComments();
       // resetoi lomake
       if (formRef.current) {
@@ -49,6 +51,19 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
 
   const toggleComments = () => {
     setShowComments(!showComments);
+  };
+
+  const createCommentNoti = async () => {
+    const token = localStorage.getItem('token')
+    if (!token || !user) {
+      return
+    }
+    const content = `${user.username} Commented on your post ${item.title}: ${inputs.comment_text}.`
+    try {
+      await createCommentNotification(item.user_id, content, item.media_id, token)
+    } catch (e) {
+      console.log('cant send noti: ', e)
+    }
   };
 
   useEffect(() => {

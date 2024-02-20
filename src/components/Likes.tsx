@@ -1,7 +1,8 @@
 import { useEffect, useReducer } from "react"
 import { Like, MediaItemWithOwner } from "../types/DBTypes"
-import { useLike } from "../hooks/apiHooks";
+import { useLike, useNotification } from "../hooks/apiHooks";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import { useUserContext } from "../hooks/ContextHooks";
 
 type LikeInitialState = {
   count: number;
@@ -37,6 +38,8 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
 
   const [likeState, likeDispatch] = useReducer(likeReducer, initialState);
   const { getUserLike, getCountByMediaId, postLike, deleteLike } = useLike()
+  const { createLikeNotification } = useNotification();
+  const { user } = useUserContext();
 
     // get user like
   const getLikes = async () => {
@@ -65,6 +68,21 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
     }
   };
 
+
+
+  const createLikeNoti = async () => {
+    const token = localStorage.getItem('token')
+    if (!token || !user) {
+      return
+    }
+    const content = `${user.username} liked your post: ${item.title}.`
+    try {
+      await createLikeNotification(item.user_id, content, item.media_id, token)
+    } catch (e) {
+      console.log('cant send noti: ', e)
+    }
+  };
+
   useEffect(() => {
     getLikes();
     getLikeCount();
@@ -87,6 +105,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
       } else {
         // post the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
         await postLike(item.media_id, token);
+        createLikeNoti();
         getLikes();
         getLikeCount();
 
