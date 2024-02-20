@@ -49,6 +49,18 @@ const useMedia = () => {
     getMedia();
   }, []);
 
+
+  const getMediaByUserId = async (userId: number) => {
+    try {
+      const mediaItems = await fetchData<MediaItem[]>(
+        import.meta.env.VITE_MEDIA_API + '/media/user/' + userId,
+      );
+      return mediaItems;
+    } catch (e) {
+      console.error('getMediaByUserId failed', e);
+    }
+  };
+
   const postMedia = (
     file: UploadResponse,
     inputs: Record<string, string>,
@@ -83,7 +95,7 @@ const useMedia = () => {
     );
   };
 
-  return {mediaArray, postMedia};
+  return {mediaArray, getMediaByUserId ,postMedia};
 };
 
 const useUser = () => {

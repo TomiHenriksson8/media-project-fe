@@ -18,7 +18,7 @@ const Post = () => {
         {item.media_type.includes('video') ? (
           <video controls src={item.filename} className="w-full h-auto"></video>
         ) : (
-          <img src="https://place-hold.it/320/240.jpg&text=Thumb2&fontsize=20" alt={item.title} className=" w-full h-auto rounded" />
+          <img src={item.thumbnail} alt={item.title} className=" w-full h-auto rounded" />
           )}
       </div>
       <div className="comment-like-container flex flex-row gap-2">
