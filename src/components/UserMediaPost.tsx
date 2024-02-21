@@ -7,7 +7,7 @@ import { MediaItem } from "../types/DBTypes";
 
 const UserMediaPost = () => {
 
-  const { getMediaByUserId } = useMedia();
+  const { getMediaByUserId, deleteMedia } = useMedia();
   const { user } = useUserContext();
 
   const [posts, setPosts] = useState<MediaItem[] | undefined>([]);
@@ -25,6 +25,20 @@ const UserMediaPost = () => {
     }
   };
 
+
+  const deleteMediaItem = async (mediaId: number) => {
+    const token = localStorage.getItem('token');
+    if (!token || !user) {
+      return;
+    }
+    try {
+      deleteMedia(mediaId, token);
+      setPosts(currentPosts => currentPosts ? currentPosts.filter(post => post.media_id !== mediaId): []);
+    } catch (e) {
+      console.error((e as Error).message);
+    }
+  };
+
   useEffect(() => {
     getMediaByUser();
   }, [user]);
@@ -35,13 +49,17 @@ const UserMediaPost = () => {
       <h2 className="text-2xl font-bold mb-4 text-center">Your Posts</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {posts?.map((post) => (
-          <div key={post.media_id} className="bg-white rounded-lg shadow overflow-hidden">
+          <div key={post.media_id} className="bg-white rounded-lg shadow overflow-hidden max-h-55">
             <div className="p-4 text-center">
               <h3 className="text-xl font-semibold">{post.title}</h3>
               <p className="text-gray-600 mt-2">{post.description}</p>
               {post.thumbnail && (
-                <img src={post.thumbnail} alt={post.title} className="mx-auto mt-4 max-w-full h-auto"/>
-              )}
+                <img src={post.thumbnail} alt={post.title} className="mx-auto mt-4 max-w-full max-h-20"/>
+                )}
+
+            </div>
+            <div className=" text-center">
+            <button className="text-white bg-red-500 p-3 rounded-md mt-3 mb-3" onClick={() => deleteMediaItem(post.media_id)}>Delete</button>
             </div>
           </div>
         ))}

@@ -1,8 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
 import { useUserContext } from "../hooks/ContextHooks";
 import SearchBar from "../components/SearchBar";
-import SearchResultsList from "../components/SearchResultList";
-import { useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { GiSilence } from "react-icons/gi";
 import { MdLogout } from "react-icons/md";
@@ -11,25 +9,6 @@ const Layout = () => {
 
   const { user ,handleAutoLogin } = useUserContext();
 
-  type User = {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    address: {
-      street: string;
-    };
-    phone: string;
-    website: string;
-    company: {
-      name: string;
-    };
-  };
-
-
-
-
-  const [results, setResults] = useState<User[]>([]);
 
   if (!user) {
     handleAutoLogin();
@@ -52,8 +31,7 @@ const Layout = () => {
             </div>
 
             <div className="search-bar-container z-5">
-              <SearchBar  setResults={setResults}/>
-              <SearchResultsList results={results}/>
+              <SearchBar/>
             </div>
 
             {user && (

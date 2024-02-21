@@ -1,25 +1,29 @@
+import React from 'react';
+import { MediaItemSearch, UserSearch } from '../types/LocalTypes';
+import { useNavigate } from 'react-router-dom';
 
-type User = {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    address: {
-      street: string;
-    };
-    phone: string;
-    website: string;
-    company: {
-      name: string;
-    };
-  };
+
+type SearchResultType = UserSearch | MediaItemSearch;
 
 type SearchResultsListProps = {
-    result: User;
-  };
+  result: SearchResultType;
+};
 
 export const SearchResult: React.FC<SearchResultsListProps> = ({ result }) => {
-    return (
-      <div className='search-result bg-gray-300 pt-2 pb-2 pl-5 pr-5 relative z-10 hover:bg-gray-400' onClick={() => alert(`You just clicked on ${result.name}`)} >{result.name}</div>
-    );
+  const navigate = useNavigate();
+  const isUser = result.type === 'user';
+
+  const handleResultClick = () => {
+    if (isUser) {
+      navigate(`/user/${result.username}`);
+    } else {
+      navigate(`/media/${result.title}`);
+    }
   };
+
+  return (
+    <div className='search-result bg-gray-300 pt-2 pb-2 pl-5 pr-5 relative z-10 hover:bg-gray-400 cursor-pointer' onClick={handleResultClick}>
+      {isUser ? result.username : result.title}
+    </div>
+  );
+};

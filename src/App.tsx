@@ -9,6 +9,8 @@ import Notification from "./views/Notification";
 import { UserProvider } from "./contexts/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Post from "./views/Post";
+import UserDetailPage from "./components/UserDetailPage";
+import MediaDetailPage from "./components/MediaDetailPage";
 
 const App = () => {
 
@@ -24,6 +26,8 @@ const App = () => {
             <Route path="/post" element={<Post />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/user/:username" element={<UserDetailPage />} />
+            <Route path="/media/:title" element={<MediaDetailPage />} />
           </Route>
         </Routes>
       </UserProvider>

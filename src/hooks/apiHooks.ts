@@ -8,7 +8,7 @@ import {
   Notifications
 } from '../types/DBTypes';
 import {fetchData} from '../lib/functions';
-import {Credentials} from '../types/LocalTypes';
+import {Credentials, SearchResults} from '../types/LocalTypes';
 import {
   LoginResponse,
   MediaResponse,
@@ -95,7 +95,26 @@ const useMedia = () => {
     );
   };
 
-  return {mediaArray, getMediaByUserId ,postMedia};
+  const deleteMedia = async (id: number, token: string) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/media/' + id,
+      options,
+    );
+  };
+
+  const getMediaByTitle = async (title: string) => {
+    return await fetchData<MediaItemWithOwner>(
+      import.meta.env.VITE_MEDIA_API + '/media/title/' + title,
+    );
+  };
+
+  return {mediaArray, getMediaByUserId ,postMedia, deleteMedia, getMediaByTitle};
 };
 
 const useUser = () => {
@@ -145,12 +164,19 @@ const useUser = () => {
     );
   };
 
+  const getUserByUsername = async (username: string) => {
+    return await fetchData<User>(
+      import.meta.env.VITE_AUTH_API + '/users/userget/' + username,
+    );
+  }
+
   return {
     getUserByToken,
     postUser,
     getUsernameAvailable,
     getEmailAvailable,
     getUserById,
+    getUserByUsername,
   };
 };
 
@@ -396,8 +422,15 @@ const useNotification = () => {
       },
     );
   };
-
   return {createCommentNotification, createLikeNotification, createFollowNotification, getNotifications, deleteNotification};
 };
 
-export {useMedia, useUser, useAuthentication, useFile, useLike, useComment, useFollow, useNotification};
+const useSearch = () => {
+  const searchMediaAndUsers = async (searchTerm: string) => {
+    return await fetchData<SearchResults>(import.meta.env.VITE_MEDIA_API + '/search/search?searchQuery=' + searchTerm);
+  };
+
+  return {searchMediaAndUsers};
+};
+
+export {useMedia, useUser, useAuthentication, useFile, useLike, useComment, useFollow, useNotification, useSearch};
