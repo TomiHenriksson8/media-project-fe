@@ -318,33 +318,34 @@ const useComment = () => {
 };
 
 const useFollow = () => {
-  const postFollow = async (user_id: number, token: string) => {
+  const postFollow = async (user_id: number, followingId: number, token: string) => {
     const options = {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({user_id}),
+      body: JSON.stringify({ followingId }), // Send followingId in the body
     };
     return await fetchData<MessageResponse>(
-      import.meta.env.VITE_MEDIA_API + '/follow/' + user_id,
+      import.meta.env.VITE_MEDIA_API + '/follow/' + user_id, // user_id as URL parameter
       options,
     );
-    };
+  };
 
-    const deleteFollow = async (user_id: number, token: string) => {
-      const options = {
-        method: 'DELETE',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      };
-      return await fetchData<MessageResponse>(
-        import.meta.env.VITE_MEDIA_API + '/follow/' + user_id,
-        options,
-      );
+  const deleteFollow = async (user_id: number, followingId: number, token: string) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
     };
+    return await fetchData<MessageResponse>(
+      `${import.meta.env.VITE_MEDIA_API}/follow/${user_id}?followingId=${followingId}`,
+      options,
+    );
+  };
 
     const getFollowers = async (user_id: number) => {
       return await fetchData(import.meta.env.VITE_MEDIA_API + '/follow/followers/' + user_id);
@@ -354,7 +355,27 @@ const useFollow = () => {
       return await fetchData(import.meta.env.VITE_MEDIA_API + '/follow/following/' + user_id);
     };
 
-    return {postFollow, deleteFollow, getFollowers, getFollowing};
+    const getFollowersCount = async (user_id: number) => {
+      return await fetchData<{count: number}>(import.meta.env.VITE_MEDIA_API + '/follow/followers/count/' + user_id);
+    };
+
+    const getFollowingCount = async (user_id: number) => {
+      return await fetchData<{count: number}>(import.meta.env.VITE_MEDIA_API + '/follow/following/count/' + user_id);
+    };
+
+    const checkFollowStatus = async (user_id: number, followingId: number, token: string) => {
+      const options = {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+      return await fetchData<{following: boolean}>(
+        `${import.meta.env.VITE_MEDIA_API}/follow/check/${user_id}?followingId=${followingId}`,
+        options,
+      );
+    };
+
+    return {postFollow, deleteFollow, getFollowers, getFollowing, getFollowersCount, getFollowingCount, checkFollowStatus};
 };
 
 

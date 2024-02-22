@@ -2,45 +2,48 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MediaItem, User } from '../types/DBTypes';
 import { useMedia, useUser } from '../hooks/apiHooks';
+import Follow from './Follow';
+import FollowingFollowers from './FollowingFollowers';
 
 const UserDetailPage = () => {
 
   const [ user, setUser ] = useState<User | undefined>();
   const [posts, setPosts] = useState<MediaItem[] | undefined>([]);
+  const [followStatusChanged, setFollowStatusChanged] = useState(false);
   const {username} = useParams<{ username: string }>();
   const { getUserByUsername } = useUser();
   const { getMediaByUserId } = useMedia();
 
-  const getMediaByUser = async () => {
-    if (!user) {
-      return;
-    }
+  const getUserDetails = async (username: string) => {
     try {
-      const media = await getMediaByUserId(user.user_id);
-      setPosts(media);
-      console.log(media);
+      const userDetails = await getUserByUsername(username);
+      setUser(userDetails);
+      if (userDetails) {
+        getMediaByUser(userDetails.user_id);
+      }
     } catch (e) {
-      console.error((e as Error).message);
+      console.error('getUserDetails error', e);
     }
   };
 
-
-  const getUserDetails = async (username: string) => {
+  const getMediaByUser = async (userId: number) => {
     try {
-      const usern = await getUserByUsername(username);
-      setUser(usern);
-      console.log(user);
-      getMediaByUser();
+      const media = await getMediaByUserId(userId);
+      setPosts(media);
     } catch (e) {
-      console.log('getUserDetails error', (e as Error).message);
+      console.error('getMediaByUser error', e);
     }
-  }
+  };
+
+  const handleFollowStatusChange = () => {
+    setFollowStatusChanged((prev) => !prev);
+  };
 
   useEffect(() => {
     if (username) {
-    getUserDetails(username);
+      getUserDetails(username);
     }
-  }, [user] )
+  }, [username]);
 
 
   return (
@@ -52,6 +55,8 @@ const UserDetailPage = () => {
             <h3 className="text-xl font-semibold mb-4">{user.username}</h3>
             <p className="text-gray-600"><span className="font-medium">Email:</span> {user.email}</p>
             <p className="text-gray-600"><span className="font-medium">Created:</span> {user.created_at.toString()}</p>
+            <Follow user={user} onFollowStatusChange={handleFollowStatusChange} />
+            <FollowingFollowers user={user} followStatusChanged={followStatusChanged} />
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-4 text-center">Posts</h2>
