@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useFollow } from "../hooks/apiHooks";
+import { useFollow, useNotification } from "../hooks/apiHooks";
 import { User } from "../types/DBTypes";
 import { useUserContext } from "../hooks/ContextHooks";
 
@@ -12,6 +12,7 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
   const [follow, setFollow] = useState<boolean>(false);
   const { postFollow, deleteFollow, checkFollowStatus } = useFollow();
   const { user: currentUser } = useUserContext();
+  const { createFollowNotification} = useNotification();
 
   const followUser = async () => {
     const token = localStorage.getItem('token');
@@ -22,6 +23,7 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
       await postFollow(user.user_id, currentUser.user_id, token);
       setFollow(true);
       onFollowStatusChange();
+      createFollowNoti();
     } catch (e) {
       console.error((e as Error).message);
     }
@@ -53,6 +55,20 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
       console.error('Error checking follow status:', e);
     }
   };
+
+  const createFollowNoti = async () => {
+    const token = localStorage.getItem('token')
+    if (!token || !user || !currentUser) {
+      return
+    }
+    const content = `${currentUser.username} Followed you`
+    try {
+      await createFollowNotification(user.user_id, content, 300, token)
+    } catch (e) {
+      console.log('cant send noti: ', e)
+    }
+  };
+
 
   useEffect(() => {
     checkFollow();
