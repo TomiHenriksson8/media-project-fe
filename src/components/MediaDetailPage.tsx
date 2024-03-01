@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import { MediaItemWithOwner } from '../types/DBTypes';
 import { useMedia } from '../hooks/apiHooks';
 import Likes from './Likes';
@@ -9,6 +9,7 @@ const MediaDetailPage = () => {
   const [media, setMedia] = useState<MediaItemWithOwner | undefined>();
   const { getMediaByTitle } = useMedia();
   const { title } = useParams<{ title: string }>();
+  const navigate: NavigateFunction = useNavigate();
 
   const getMediaDetails = async (title: string) => {
     try {
@@ -30,23 +31,41 @@ const MediaDetailPage = () => {
 
   // When rendering, check if media is defined and has at least one item
   return (
+
+
     <>
-      {media &&  (
-        <div key={media.media_id} className="bg-white rounded-lg shadow overflow-hidden max-h-55">
-          <div className="p-4 text-center">
-            <h3 className="text-xl font-semibold">{media.title}</h3>
-            <p className="text-gray-600 mt-2">{media.description}</p>
-            {media.thumbnail && (
-              <img src={media.thumbnail} alt={media.title} className="mx-auto mt-4 max-w-full max-h-20" />
-            )}
-          </div>
-          <div className="comment-like-container flex flex-row gap-2">
-          <Likes  item={media}/>
-          <Comments item={media}/>
-      </div>
+    {media && (
+      <div className="max-w-4xl mx-auto p-4 bg-gray-300 shadow-lg rounded-lg flex flex-col items-center m-10">
+        <h3 className="text-xl font-bold mb-2 text-center">{media.title}</h3>
+        <div className="w-2/3">
+          {media.media_type.includes('video') ? (
+            <video controls src={media.filename} className="w-full h-auto"></video>
+          ) : (
+            <img src={media.thumbnail} alt={media.title} className="w-full h-auto rounded" />
+          )}
         </div>
-      )}
-    </>
+        <div className="comment-like-container flex flex-row gap-2">
+          <Likes item={media}/>
+          <Comments item={media}/>
+        </div>
+        <p className="mt-4 text-center">{media.description}</p>
+        <p className="text-sm text-gray-600 mt-2 text-center">
+          Uploaded at: {new Date(media.created_at).toLocaleString('fi-FI')}, by: {media.username}
+        </p>
+        <p className="text-sm text-gray-600 text-center">Size: {media.filesize}</p>
+        <p className="text-sm text-gray-600 mb-4 text-center">Type: {media.media_type}</p>
+        <button
+          onClick={() => {
+            navigate('/')
+          }}
+          className="bg-yellow-500 text-black py-2 px-4 rounded hover:bg-yellow-400 transition duration-300"
+        >
+          Go Back
+        </button>
+      </div>
+    )}
+  </>
+
   );
 };
 

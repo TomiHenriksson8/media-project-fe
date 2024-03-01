@@ -44,6 +44,11 @@ type UploadResponse = MessageResponse & {
   };
 };
 
+type NotificationResponse = {
+  message: string,
+  count: number
+}
+
 export type {
   MessageResponse,
   ErrorResponse,
@@ -54,4 +59,5 @@ export type {
   UserDeleteResponse,
   AvailableResponse,
   BooleanResponse,
+  NotificationResponse
 };

@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   Comment,
   Like,
@@ -13,12 +13,14 @@ import {
   LoginResponse,
   MediaResponse,
   MessageResponse,
+  NotificationResponse,
   UploadResponse,
   UserResponse,
 } from '../types/MessageTypes';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
+  const [followedMediaArray, setFollowedMediaArray] = useState<MediaItemWithOwner[]>([]);
 
   const getMedia = async () => {
     try {
@@ -60,6 +62,38 @@ const useMedia = () => {
       console.error('getMediaByUserId failed', e);
     }
   };
+
+  const getMediaFromFollowed = useCallback(async (userId: number) => {
+    try {
+      const mediaItems = await fetchData<MediaItem[]>(
+        `${import.meta.env.VITE_MEDIA_API}/media/followed/${userId}`,
+      );
+
+      const itemsWithOwnerPromises = mediaItems.map(async (item) => {
+        try {
+          const owner = await fetchData<User>(
+            `${import.meta.env.VITE_AUTH_API}/users/${item.user_id}`,
+          );
+          return {
+            ...item,
+            username: owner.username,
+          };
+        } catch (error) {
+          console.error('Fetching user failed for user_id:', item.user_id, error);
+          // Optionally handle this more gracefully
+          return { ...item, username: 'Unknown' };
+        }
+      });
+
+      const itemsWithOwner = await Promise.all(itemsWithOwnerPromises);
+      setFollowedMediaArray(itemsWithOwner);
+    } catch (e) {
+      console.error('getMediaFromFollowed failed', e);
+      // Optionally reset to an empty array or handle differently
+      setFollowedMediaArray([]);
+    }
+  }, [setFollowedMediaArray]);
+
 
   const postMedia = (
     file: UploadResponse,
@@ -114,7 +148,7 @@ const useMedia = () => {
     );
   };
 
-  return {mediaArray, getMediaByUserId ,postMedia, deleteMedia, getMediaByTitle};
+  return {mediaArray, getMediaByUserId, followedMediaArray ,postMedia, deleteMedia, getMediaByTitle, getMediaFromFollowed};
 };
 
 const useUser = () => {
@@ -433,6 +467,14 @@ const useNotification = () => {
     });
   };
 
+  const getUnreadNotificationsCount = async (user_id: number, token: string) => {
+    return await fetchData<NotificationResponse>(import.meta.env.VITE_MEDIA_API + '/notification/getunread/' + user_id, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+  };
+
   const deleteNotification = async (notiId: number, token: string) => {
     return await fetchData<MessageResponse>(
       import.meta.env.VITE_MEDIA_API + '/notification/delete/' + notiId, {
@@ -443,7 +485,7 @@ const useNotification = () => {
       },
     );
   };
-  return {createCommentNotification, createLikeNotification, createFollowNotification, getNotifications, deleteNotification};
+  return {createCommentNotification, createLikeNotification, createFollowNotification, getNotifications, getUnreadNotificationsCount, deleteNotification};
 };
 
 const useSearch = () => {

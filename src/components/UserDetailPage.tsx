@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { MediaItem, User } from '../types/DBTypes';
+import { MediaItem, User} from '../types/DBTypes';
 import { useMedia, useUser } from '../hooks/apiHooks';
 import Follow from './Follow';
 import FollowingFollowers from './FollowingFollowers';
+import { useUserContext } from '../hooks/ContextHooks';
+
 
 const UserDetailPage = () => {
 
@@ -12,6 +14,7 @@ const UserDetailPage = () => {
   const [followStatusChanged, setFollowStatusChanged] = useState(false);
   const {username} = useParams<{ username: string }>();
   const { getUserByUsername } = useUser();
+  const { user: currentUser } = useUserContext();
   const { getMediaByUserId } = useMedia();
 
   const getUserDetails = async (username: string) => {
@@ -55,7 +58,11 @@ const UserDetailPage = () => {
             <h3 className="text-xl font-semibold mb-4">{user.username}</h3>
             <p className="text-gray-600"><span className="font-medium">Email:</span> {user.email}</p>
             <p className="text-gray-600"><span className="font-medium">Created:</span> {user.created_at.toString()}</p>
-            <Follow user={user} onFollowStatusChange={handleFollowStatusChange} />
+            {currentUser && currentUser.user_id !== user.user_id ? (
+              <Follow user={user} onFollowStatusChange={handleFollowStatusChange} />
+            ) : (
+              null
+            )}
             <FollowingFollowers user={user} followStatusChanged={followStatusChanged} />
           </div>
           <div>
