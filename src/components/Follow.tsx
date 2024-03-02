@@ -76,13 +76,23 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
 
   return (
     <>
-    {follow ? (
-      <button onClick={unfollowUser}>Unfollow</button>
-    ) : (
-      <button onClick={followUser}>Follow</button>
-    )}
+      {follow ? (
+        <button
+          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 h-1/2"
+          onClick={unfollowUser}
+        >
+          Unfollow
+        </button>
+      ) : (
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 h-1/2"
+          onClick={followUser}
+        >
+          Follow
+        </button>
+      )}
     </>
-  )
+  );
 }
 
 export default Follow
