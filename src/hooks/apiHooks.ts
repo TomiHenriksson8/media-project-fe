@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Comment,
   Like,
@@ -63,36 +63,33 @@ const useMedia = () => {
     }
   };
 
-  const getMediaFromFollowed = useCallback(async (userId: number) => {
+  const getMediaFromFollowed = async (userId: number) => {
     try {
       const mediaItems = await fetchData<MediaItem[]>(
         `${import.meta.env.VITE_MEDIA_API}/media/followed/${userId}`,
       );
-
-      const itemsWithOwnerPromises = mediaItems.map(async (item) => {
-        try {
-          const owner = await fetchData<User>(
-            `${import.meta.env.VITE_AUTH_API}/users/${item.user_id}`,
-          );
-          return {
-            ...item,
-            username: owner.username,
-          };
-        } catch (error) {
-          console.error('Fetching user failed for user_id:', item.user_id, error);
-          // Optionally handle this more gracefully
-          return { ...item, username: 'Unknown' };
-        }
-      });
-
-      const itemsWithOwner = await Promise.all(itemsWithOwnerPromises);
+      const itemsWithOwner: MediaItemWithOwner[] = await Promise.all(
+        mediaItems.map(async (item) => {
+          try {
+            const owner = await fetchData<User>(
+              `${import.meta.env.VITE_AUTH_API}/users/${item.user_id}`,
+            );
+            return {
+              ...item,
+              username: owner.username,
+            };
+          } catch (error) {
+            console.error('Fetching user failed for user_id:', item.user_id, error);
+            return { ...item, username: 'Unknown' };
+          }
+        }),
+      );
       setFollowedMediaArray(itemsWithOwner);
     } catch (e) {
       console.error('getMediaFromFollowed failed', e);
-      // Optionally reset to an empty array or handle differently
       setFollowedMediaArray([]);
     }
-  }, [setFollowedMediaArray]);
+  };
 
 
   const postMedia = (

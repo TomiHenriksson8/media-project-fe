@@ -69,7 +69,7 @@ const Layout = () => {
                 <li className="m-4 relative">
                   <Link className="block text-white text-center no-underline" to='/notification'>
                     {noti && noti.count > 0 ? (
-                      <div className="bg-red-500 text-white px-2 py-1 rounded-full absolute -top-1 left-3  text-xs flex items-center justify-center" style={{ minWidth: '20px', height: '20px' }}>
+                      <div className="bg-red-500 text-white px-2 py-1 rounded-full absolute -top-1 left-3  text-xs flex items-center justify-center animate-bounce" style={{ minWidth: '20px', height: '20px' }}>
                       {noti && noti.count}
                       </div>
                     ) : (<></>)}
