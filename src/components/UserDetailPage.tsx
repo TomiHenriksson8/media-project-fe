@@ -57,36 +57,37 @@ const UserDetailPage = () => {
               <div className="bg-white shadow-md rounded-lg p-6 mb-6 ">
               <div className="flex flex-row justify-between">
                 <img src='https://place-hold.it/170x170.jpg&text=Pic2&fontsize=0' alt={user.username} className="w-20 h-20 rounded-full"/>
-                <h3 className=" font-bold mb-4 text-3xl">{user.username}</h3>
+                <h3 className=" font-bold mb-4 text-3xl mt-4">{user.username}</h3>
                 {currentUser && currentUser.user_id !== user.user_id ? (
                   <Follow user={user} onFollowStatusChange={handleFollowStatusChange} />
                 ) : (
                   null
                 )}
               </div>
-
-
-                <p className="text-gray-600"><span className="font-medium">Email:</span> {user.email}</p>
-                <p className="text-gray-600"><span className="font-medium">Created:</span> {user.created_at.toString()}</p>
-
                 <FollowingFollowers user={user} followStatusChanged={followStatusChanged} />
+                <p className="text-gray-600 pt-3"><span className="font-medium">Created:</span> {new Date(user.created_at).toLocaleString('fi-FI')}</p>
+
               </div>
           <div>
             <h2 className="text-2xl font-bold mb-4 text-center">Posts</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {posts?.map((post) => (
-                <Link to='/post' state={post}>
-                <div key={post.media_id} className="bg-white rounded-lg shadow overflow-hidden max-h-55">
-                  <div className="p-4 text-center">
-                    <h3 className="text-xl font-semibold">{post.title}</h3>
-                    <p className="text-gray-600 mt-2">{post.description}</p>
-                    {post.thumbnail && (
-                      <img src={post.thumbnail} alt={post.title} className="mx-auto mt-4 max-w-full max-h-20"/>
-                    )}
-                  </div>
-                </div>
-                </Link>
-              ))}
+            <div className={`${posts && posts.length > 0 ? 'grid grid-cols-1 sm:grid-cols-3 gap-4' : 'flex justify-center items-center'}`}>
+              {posts && posts.length > 0 ? (
+                posts.map((post) => (
+                  <Link key={post.media_id} to='/post' state={post}>
+                    <div className="bg-white rounded-lg shadow overflow-hidden max-h-55">
+                      <div className="p-4 text-center">
+                        <h3 className="text-xl font-semibold">{post.title}</h3>
+                        <p className="text-gray-600 mt-2">{post.description}</p>
+                        {post.thumbnail && (
+                          <img src={post.thumbnail} alt={post.title} className="mx-auto mt-4 max-w-full max-h-20"/>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div className="text-center text-xl font-semibold w-full">No posts</div>
+              )}
             </div>
           </div>
 

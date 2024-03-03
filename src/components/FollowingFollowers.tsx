@@ -44,10 +44,10 @@ const FollowingFollowers = ({ user, followStatusChanged }: FollowingFollowersPro
   }, [user, followStatusChanged]); // Added followStatusChanged to the dependency array
 
   return (
-    <>
-      <p>Followers: {followerCount ? followerCount.count : "Loading..."}</p>
-      <p>Following: {followingCount ? followingCount.count : "Loading..."}</p>
-    </>
+    <div className="flex gap-4 pt-2 ">
+      <p>Followers: <span className=" font-semibold">{followerCount ? followerCount.count : "Loading..."}</span></p>
+      <p>Following: <span className="font-semibold">{followingCount ? followingCount.count : "Loading..."}</span></p>
+    </div>
   );
 };
 

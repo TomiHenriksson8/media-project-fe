@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import {MediaItemWithOwner} from '../types/DBTypes';
+import { ImInsertTemplate } from 'react-icons/im';
 
 
 
@@ -8,19 +9,18 @@ const MediaRow = (props: {
   item: MediaItemWithOwner
 }) => {
   const {item}  = props;
-
   return (
     <>
       <Link to='/post' state={item}>
-            <div className="media-item w-full max-w-96 mt-2 mb-2 p-5 bg-blue-100 shadow-custom flex flex-col items-center rounded-md" key={item.media_id}>
-              <div className="media-header w-full flex items-center mb-2">
+            <div className="media-item w-full max-w-96 mb-10 py-8 px-6 bg-white rounded-lg shadow-custom flex flex-col items-center" key={item.media_id}>
+              <div className="media-header w-full flex items-center mb-3">
                 {/* <img src={item.owner.profile_pic} alt="Owner" className="owner-image" /> */}
                 <img className="profile-icon w-10 rounded-full" src="https://place-hold.it/170x170.jpg&text=Pic2&fontsize=0" alt="Profile" />
-                <span className="username ml-2">{item.username}</span>
+                <span className="username ml-3 text-lg">{item.username}</span>
               </div>
               <img src={item.thumbnail} className="media-thumbnail" />
-              {/* <img src="https://place-hold.it/320/240.jpg&text=Thumb2&fontsize=20" className="media-thumbnail w-full mb-2" /> */}
-              <p>{item.description}</p>
+              <p className='p-2 font-medium'>{item.title}</p>
+
               <span>{item.media_type}</span>
             </div>
           </Link>

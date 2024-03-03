@@ -20,7 +20,7 @@ const SearchResultsList = ({ users, mediaItems }: mediaAndUsers) => {
   console.log(combinedResults);
 
   return (
-    <div className='results-list absolute z-10 w-80 flex flex-col shadow-custom rounded-lg mt-1 max-h-72 overflow-y-scroll'>
+    <div className='results-list absolute z-10 w-60 flex flex-col shadow-custom rounded-lg mt-1 max-h-72 overflow-y-scroll'>
       {combinedResults.map((result, index) => (
         <SearchResult result={result} key={index} />
       ))}

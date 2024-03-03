@@ -22,7 +22,7 @@ export const SearchResult: React.FC<SearchResultsListProps> = ({ result }) => {
   };
 
   return (
-    <div className='search-result bg-gray-300 pt-2 pb-2 pl-5 pr-5 relative z-10 hover:bg-gray-400 cursor-pointer' onClick={handleResultClick}>
+    <div className='search-result bg-gray-300 pt-2 pb-2 pl-5 pr-5 relative z-10 hover:bg-gray-400 cursor-pointer w-' onClick={handleResultClick}>
       {isUser ? result.username : result.title}
     </div>
   );

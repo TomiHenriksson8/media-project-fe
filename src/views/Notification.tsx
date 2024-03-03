@@ -38,34 +38,33 @@ const Notification = () => {
 
   useEffect(() => {
     getUserNotifications();
-  }, [user]); // Ensure re-fetching when user changes
+  }, [user]);
 
   return (
     <>
       {user ? (
-        <>
-          <div className="font-bold text-xl mb-4 text-center">Notifications</div>
-          <ul className="list-none">
+        <div>
+          <div className="font-bold text-xl mb-4 mt-8 text-center">Notifications</div>
+          <ul className="list-none m-2">
             {notifications.map((notification) => (
               <li key={notification.notification_id} className="mb-2 p-2 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition-colors duration-150 ease-in-out">
                 <div className='flex justify-between items-start'>
                   <div className='font-semibold text-blue-600'>
                     {notification.notification_content}
-                    <p className="text-sm">
+                    <p className="text-sm text-blue-500">
                       {new Date(notification.created_at).toLocaleString('fi-FI')}
                     </p>
                   </div>
                   <button
                     onClick={() => delNotification(notification.notification_id)}
-                    className='bg-red-500 text-white p-1 rounded-md'
-                  >
+                    className='bg-red-500 text-white p-2 rounded-md font-medium'>
                     Delete
                   </button>
                 </div>
               </li>
             ))}
           </ul>
-        </>
+        </div>
       ) : (
         <div className="font-bold text-xl mb-4 text-center">Please log in to see your notifications</div>
       )}

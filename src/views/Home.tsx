@@ -17,11 +17,11 @@ const Home = () => {
 
   console.log(followedMediaArray);
 
-  const baseButtonClass = 'bg-sky-200 hover:bg-cyan-200 transition-colors duration-200 ease-out delay-100 text-black p-3 font-medium';
+  const baseButtonClass = 'bg-sky-200 hover:bg-sky-100 transition-colors duration-200 ease-out delay-100 text-black p-3 font-medium';
 
   // Apply additional class based on the page state
-  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-teal-200' : ''}`;
-  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-teal-200' : ''}`;
+  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-300' : ''}`;
+  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-300' : ''}`;
 
   return (
     <>
@@ -30,7 +30,7 @@ const Home = () => {
         <button className={followingButtonClass} onClick={() => setPage(false)}>Following</button>
       </div>
       {page ? (
-        <div className="media-container flex flex-col items-center p-2">
+        <div className="media-container flex flex-col items-center p-10">
           {mediaArray.map((item) => (
               <MediaRow
                 key={item.media_id}
@@ -39,7 +39,7 @@ const Home = () => {
             ))}
         </div>
       ) : (
-        <div className='media-container flex flex-col items-center p-2'>
+        <div className='media-container flex flex-col items-center p-10'>
           {followedMediaArray.map((item) =>  (
             <MediaRow
               key={item.media_id}

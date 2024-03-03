@@ -50,7 +50,7 @@ const MediaDetailPage = () => {
         </div>
         <p className="mt-4 text-center">{media.description}</p>
         <p className="text-sm text-gray-600 mt-2 text-center">
-          Uploaded at: {new Date(media.created_at).toLocaleString('fi-FI')}, by: {media.username}
+          Uploaded at: {new Date(media.created_at).toLocaleString('fi-FI')}
         </p>
         <p className="text-sm text-gray-600 text-center">Size: {media.filesize}</p>
         <p className="text-sm text-gray-600 mb-4 text-center">Type: {media.media_type}</p>
