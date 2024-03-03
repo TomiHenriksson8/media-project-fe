@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
 import {MediaItemWithOwner} from '../types/DBTypes';
-import { ImInsertTemplate } from 'react-icons/im';
 
 
 
