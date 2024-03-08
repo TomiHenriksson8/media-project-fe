@@ -31,7 +31,7 @@ const RegisterForm = () => {
 
   const handleEmailBlur = async (event: React.SyntheticEvent<HTMLInputElement>) => {
     const result = await getEmailAvailable(event.currentTarget.value);
-    // setEmailAvailable(result.available);
+    setEmailAvailable(result.available);
   };
 
   console.log(usernameAvailable, emailAvailable)

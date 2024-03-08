@@ -3,7 +3,6 @@ import { useUserContext } from "../hooks/ContextHooks";
 import SearchBar from "../components/SearchBar";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { GiSilence } from "react-icons/gi";
-import { MdLogout } from "react-icons/md";
 import { useNotification } from "../hooks/apiHooks";
 import { useEffect, useState } from "react";
 import { NotificationResponse } from "../types/MessageTypes";
