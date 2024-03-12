@@ -78,14 +78,14 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
     <>
       {follow ? (
         <button
-          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 h-1/2 mt-4 mb-6"
+          className="bg-red-500 hover:bg-red-600 text-white font-bold sm:py-2 sm:px-4 py-1 px-2 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 h-1/2 mt-4 mb-6"
           onClick={unfollowUser}
         >
           Unfollow
         </button>
       ) : (
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 h-1/2 mt-4 mb-6"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold sm:py-2 sm:px-4 py-1 px-2 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 h-1/2 mt-4 mb-6"
           onClick={followUser}
         >
           Follow

@@ -30,13 +30,13 @@ const RegisterForm = () => {
   };
 
   const handleEmailBlur = async (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const result = await getEmailAvailable(event.currentTarget.value);
+    await getEmailAvailable(event.currentTarget.value);
     // setEmailAvailable(result.available);
   };
 
   console.log(usernameAvailable, emailAvailable)
   return (
-    <div className="flex flex-col   w-1/2 pt-10 bg-blue-200 ">
+    <div className="flex flex-col   md:w-1/2 pt-10 bg-blue-200 ">
       <h3 className="text-3xl mb-7 -mt-7">Register</h3>
       <form onSubmit={handleSubmit}  className="flex flex-col text-center">
         <div className="flex w-4/5">

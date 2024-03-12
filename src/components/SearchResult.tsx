@@ -28,7 +28,7 @@ export const SearchResult: React.FC<SearchResultsListProps> = ({ result }) => {
         <>
           <FaUserAlt className="inline-block mr-3" />
           {result.username}
-          
+
         </>
       ) : (
         <>

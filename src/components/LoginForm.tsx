@@ -17,7 +17,7 @@ const LoginForm = () => {
   const {handleSubmit, handleInputChange, inputs} = useForm(doSubmit, initValues);
 
   return (
-    <div className="flex flex-col w-1/2  pt-10 bg-white">
+    <div className="flex flex-col md:w-1/2  pt-10 bg-white">
       <h3 className="text-3xl mb-7 -mt-7">Login</h3>
       <form onSubmit={handleSubmit} className="flex flex-col">
         <div className="flex w-4/5">

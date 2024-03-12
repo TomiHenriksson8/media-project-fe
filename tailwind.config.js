@@ -12,6 +12,9 @@ export default {
       colors: {
         'custom-blue': '#d6ebed',
       },
+      screens: {
+        'mlg': '1050px'
+      },
     },
   },
   plugins: [],

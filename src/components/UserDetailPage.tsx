@@ -56,8 +56,8 @@ const UserDetailPage = () => {
             <>
               <div className="bg-white shadow-md rounded-lg p-6 mb-6 ">
               <div className="flex flex-row justify-between">
-                <img src='https://place-hold.it/170x170.jpg&text=Pic2&fontsize=0' alt={user.username} className="w-20 h-20 rounded-full"/>
-                <h3 className=" font-bold mb-4 text-3xl mt-4">{user.username}</h3>
+                <img src='../blank-pfp.png' alt={user.username} className="w-16 h-16  rounded-full border border-gray-400 border-solid"/>
+                <h3 className=" font-bold mb-4  text-[23px]  mt-4">{user.username}</h3>
                 {currentUser && currentUser.user_id !== user.user_id ? (
                   <Follow user={user} onFollowStatusChange={handleFollowStatusChange} />
                 ) : (
@@ -65,7 +65,7 @@ const UserDetailPage = () => {
                 )}
               </div>
                 <FollowingFollowers user={user} followStatusChanged={followStatusChanged} />
-                <p className="text-gray-600 pt-3"><span className="font-medium">Created:</span> {new Date(user.created_at).toLocaleString('fi-FI')}</p>
+                <p className="text-gray-600 pt-4"><span className="font-medium">Created:</span> {new Date(user.created_at).toLocaleString('fi-FI')}</p>
 
               </div>
           <div>

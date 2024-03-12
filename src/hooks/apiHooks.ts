@@ -345,7 +345,13 @@ const useComment = () => {
     return commentsWithUsername;
   };
 
-  return {postComment, getCommentsByMediaId};
+  const getCommentCountByMediaId = async (media_id: number) => {
+    return await fetchData<{count: number}>(
+      import.meta.env.VITE_MEDIA_API + '/comments/count/' + media_id,
+    );
+  };
+
+  return { postComment, getCommentsByMediaId, getCommentCountByMediaId };
 };
 
 const useFollow = () => {
@@ -482,7 +488,18 @@ const useNotification = () => {
       },
     );
   };
-  return {createCommentNotification, createLikeNotification, createFollowNotification, getNotifications, getUnreadNotificationsCount, deleteNotification};
+
+  const markNotificationAsRead = async (notiId: number, token: string) => {
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/notification/markasread/' + notiId, {
+        method: 'PATCH',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+  };
+
+  return {createCommentNotification, createLikeNotification, createFollowNotification, getNotifications, getUnreadNotificationsCount, deleteNotification, markNotificationAsRead };
 };
 
 const useSearch = () => {

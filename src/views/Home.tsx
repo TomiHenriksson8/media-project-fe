@@ -17,11 +17,11 @@ const Home = () => {
 
   console.log(followedMediaArray);
 
-  const baseButtonClass = 'bg-sky-200 hover:bg-sky-100 transition-colors duration-200 ease-out delay-100 text-black p-3 font-medium';
+  const baseButtonClass = 'bg-sky-200 hover:bg-sky-300 transition-colors duration-200 ease-out delay-100 text-black p-3 font-medium';
 
   // Apply additional class based on the page state
-  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-300' : ''}`;
-  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-300' : ''}`;
+  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-400' : ''}`;
+  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-400' : ''}`;
 
   return (
     <>
