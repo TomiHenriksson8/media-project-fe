@@ -17,19 +17,18 @@ const Home = () => {
 
   console.log(followedMediaArray);
 
-  const baseButtonClass = 'bg-sky-200 hover:bg-sky-300 transition-colors duration-200 ease-out delay-100 text-black p-3 font-medium';
+  const baseButtonClass = 'bg-sky-200 hover:bg-sky-300 text-black p-3 font-medium transition duration-200 ease-out rounded-lg shadow-sl';
 
-  // Apply additional class based on the page state
   const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-400' : ''}`;
   const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-400' : ''}`;
 
   return (
     <>
-      <div className='flex flex-col'>
+      <div className='flex flex-col space-y-[2px] pt-[2px]'>
         <button className={forYouButtonClass} onClick={() => setPage(true)}>For You</button>
         <button className={followingButtonClass} onClick={() => setPage(false)}>Following</button>
       </div>
-      {page ? (
+        {page ? (
         <div className="media-container flex flex-col items-center p-10">
           {mediaArray.map((item) => (
               <MediaRow

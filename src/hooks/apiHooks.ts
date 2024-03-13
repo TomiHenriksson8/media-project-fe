@@ -537,4 +537,28 @@ const useSearch = () => {
   return {searchMediaAndUsers};
 };
 
-export {useMedia, useUser, useAuthentication, useFile, useLike, useComment, useFollow, useNotification, useSearch};
+const useTag = () => {
+
+  const getTagsByMediaId = async (id: number) => {
+    return await fetchData<string[]>(import.meta.env.VITE_MEDIA_API + '/tags/bymedia/' + id);
+  };
+
+  const postTag = async (tag_name: string, media_id: number,  token: string) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({tag_name, media_id}),
+    };
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/tags',
+      options,
+    );
+  }
+
+  return {getTagsByMediaId, postTag};
+}
+
+export {useMedia, useUser, useAuthentication, useFile, useLike, useComment, useFollow, useNotification, useSearch, useTag};

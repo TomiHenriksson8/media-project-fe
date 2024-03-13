@@ -30,8 +30,8 @@ const LikedPosts = () => {
    return (
     <>
 
-    <div className="max-w-4xl mx-auto p-5">
-      <h2 className="text-lg font-bold text-left mb-3 ml-3">Liked Posts</h2>
+    <div className="max-w-4xl mx-auto pt-1 pb-4 ">
+      <h2 className="text-2xl font-bold mb-4 text-center">Liked Posts</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {likedMedia?.map((post) => (
           <div key={post.media_id} className="bg-white rounded-lg shadow overflow-hidden max-h-55">

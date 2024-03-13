@@ -140,8 +140,8 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
   }, [item]);
 
   return (
-    <div>
-      <button onClick={toggleComments} aria-label="Toggle comments" className="text-lg p-3 mt-2 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+    <div className='flex  flex-col gap-1'>
+      <button onClick={toggleComments} aria-label="Toggle comments" className="text-lg p-3 mt-2 bg-gray-200 rounded-full">
         <FaRegComment />
       </button>
       <p className="font-medium text-gray-900 ml-4 -mt-1">{commentState.count}</p>

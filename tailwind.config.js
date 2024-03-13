@@ -11,6 +11,11 @@ export default {
       },
       colors: {
         'custom-blue': '#d6ebed',
+        gray: {
+          '125': '#f8f9fa',
+          '150': '#eceef0',
+          '175': '#e2e3e5',
+        },
       },
       screens: {
         'mlg': '1050px'
