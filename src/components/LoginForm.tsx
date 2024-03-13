@@ -1,17 +1,19 @@
 import {useForm} from "../hooks/formHooks";
 import {Credentials} from "../types/LocalTypes";
 import { useUserContext } from "../hooks/ContextHooks";
+import { useState } from "react";
 
 const LoginForm = () => {
   const initValues: Credentials = {username: '', password: ''};
   const { handleLogin } = useUserContext();
+  const [popup, setPopup] = useState(false);
 
   const doSubmit = async () => {
-    try {
-        handleLogin(inputs as Credentials);
-    } catch (e) {
-        console.log((e as Error).message);
-    }
+
+      const success =  await handleLogin(inputs as Credentials);
+      if (!success) {
+        setPopup(true);
+      }
 };
 
   const {handleSubmit, handleInputChange, inputs} = useForm(doSubmit, initValues);
@@ -31,6 +33,24 @@ const LoginForm = () => {
             autoComplete="username"
           />
         </div>
+
+        {popup && (
+          <>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+              <h3 className="text-2xl mb-4">Registration Failed!</h3>
+              <p> Incorrect username or password </p>
+              <button
+                onClick={() => setPopup(false)}
+                className="m-3 rounded-md bg-slate-700 pt-2 pb-2 pl-4 pr-4 text-white font-medium hover:bg-slate-600"
+              >
+              Close
+              </button>
+            </div>
+          </div>
+        </>
+        )}
+
         <div className="flex w-4/5">
           <label className="w-1/3 p6 text-end mt-6" htmlFor="loginpassword">Password</label>
           <input

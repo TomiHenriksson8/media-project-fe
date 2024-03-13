@@ -16,20 +16,22 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const location = useLocation();
 
     // login, logout and autologin functions are here instead of components
-    const handleLogin = async (credentials: Credentials) => {
+    const handleLogin = async (credentials: Credentials): Promise<boolean> => {
         try {
             const loginResponse = await postLogin(credentials);
             if (loginResponse) {
               localStorage.setItem('token', loginResponse.token)
               setUser(loginResponse.user)
               navigate('/');
+              return true;
             } else {
               setUser(null);
+              return false;
             }
             // loginResponse ? (localStorage.setItem('token', loginResponse.token), setUser(loginResponse.user)) : setUser(null);
           } catch (e) {
             console.log((e as Error).message);
-
+            return false;
         }
     };
 

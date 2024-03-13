@@ -4,7 +4,7 @@ export type Credentials = Pick<User, 'username' | 'password'>;
 
 export type AuthContextType = {
   user: UserWithNoPassword | null;
-  handleLogin: (credentials: Credentials) => void;
+  handleLogin: (credentials: Credentials) => Promise<boolean>;
   handleLogout: () => void;
   handleAutoLogin: () => void;
 };

@@ -49,6 +49,8 @@ type NotificationResponse = {
   count: number
 }
 
+
+
 export type {
   MessageResponse,
   ErrorResponse,
@@ -59,5 +61,5 @@ export type {
   UserDeleteResponse,
   AvailableResponse,
   BooleanResponse,
-  NotificationResponse
+  NotificationResponse,
 };

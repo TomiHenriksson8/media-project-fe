@@ -162,7 +162,7 @@ const useUser = () => {
     );
   };
 
-  const postUser = async (user: Record<string, string>) => {
+  const postUser = async (user: Record<string, string>): Promise<UserResponse> => {
     const options: RequestInit = {
       method: 'POST',
       headers: {
@@ -171,7 +171,7 @@ const useUser = () => {
       body: JSON.stringify(user),
     };
 
-    await fetchData<UserResponse>(
+    return fetchData<UserResponse>(
       import.meta.env.VITE_AUTH_API + '/users',
       options,
     );
