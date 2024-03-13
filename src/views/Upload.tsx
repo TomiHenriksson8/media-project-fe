@@ -8,6 +8,7 @@ const Upload = () => {
   const { postFile } = useFile();
   const { postMedia } = useMedia();
   const navigate = useNavigate();
+  const [uploadStatus, setUploadStatus] = useState({ success: false, message: '' })
 
   const initValues = {
     title: '',
@@ -20,13 +21,9 @@ const Upload = () => {
       if (!token || !file) {
         return
       }
-      // TODO: call postFile function (see below)
       const fileResult = await postFile(file, token)
-      // TODO: call postMedia function (see below)
       const mediaResult = await postMedia(fileResult, inputs, token)
-      alert(mediaResult.message)
-      // TODO: redirect to Home
-      navigate('/');
+      setUploadStatus({ success: true, message: mediaResult.message });
     } catch (e) {
       console.log((e as Error).message);
     }
@@ -54,6 +51,27 @@ const Upload = () => {
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  bg-slate-300"
                 />
             </div>
+
+            {uploadStatus.success && (
+              <>
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                  <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 className="text-2xl mb-4">Upload Successful</h3>
+                    <p>{uploadStatus.message}</p>
+                    <button
+                      onClick={() => {
+                        setUploadStatus({ success: false, message: '' })
+                        navigate('/');
+                      }}
+                      className="m-3 rounded-md bg-slate-700 pt-2 pb-2 pl-4 pr-4 text-white font-medium hover:bg-slate-600"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+
             <div>
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
                 <textarea
