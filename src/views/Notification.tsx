@@ -70,18 +70,18 @@ const Notification = () => {
           <div className="font-bold text-xl mb-4 mt-8 text-center">Notifications</div>
           <ul className="list-none m-2">
             {notifications.map((notification) => (
-                <li key={notification.notification_id} className={`mb-2 p-2 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition-colors duration-150 ease-in-out ${notification.read_status ? '' : 'border-solid border-blue-300'}`}>
+                <li key={notification.notification_id} className={`mb-5 p-2 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition-colors duration-150 ease-in-out ${notification.read_status ? '' : 'border-solid border-blue-300'}`}>
                 <div className='flex justify-between items-start'>
-                  <div onClick={() => navigateToUser(notification)}>
-                    <div className='font-semibold text-blue-600'>
+                  <div className='flex-grow' onClick={(e) => e.stopPropagation()}>
+                    <div className='font-semibold text-blue-800' onClick={() => navigateToUser(notification)} style={{cursor: 'pointer'}}>
                       {notification.notification_content}
-                      <p className="text-sm text-blue-500">
+                      <p className="text-sm text-blue-700">
                         {new Date(notification.created_at).toLocaleString('fi-FI')}
                       </p>
                     </div>
                   </div>
                   <button
-                    onClick={() => delNotification(notification.notification_id)}
+                    onClick={(e) => { e.stopPropagation(); delNotification(notification.notification_id); }}
                     className='bg-red-500 text-white p-2 rounded-md font-medium'>
                     Delete
                   </button>

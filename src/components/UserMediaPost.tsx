@@ -3,6 +3,7 @@ import { useUserContext } from "../hooks/ContextHooks";
 import { useMedia } from "../hooks/apiHooks";
 import { MediaItem } from "../types/DBTypes";
 import { Link } from "react-router-dom";
+import Likes from "./Likes";
 
 
 
@@ -62,8 +63,8 @@ const UserMediaPost = () => {
             </div>
           </Link>
           <div className=" text-center bg-gray-100">
-            <button className="text-white bg-red-500 p-2 rounded-lg mt-3 mb-2" onClick={() => deleteMediaItem(post.media_id)}>Delete</button>
-            </div>
+            <button className="text-white bg-red-500 py-2 px-5 rounded-lg mt-3 mb-2" onClick={() => deleteMediaItem(post.media_id)}>Delete</button>
+          </div>
           </div>
         ))}
       </div>

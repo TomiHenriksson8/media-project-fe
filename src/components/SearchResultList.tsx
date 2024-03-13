@@ -9,8 +9,8 @@ const SearchResultsList = ({ users, mediaItems }: mediaAndUsers) => {
   // console.log('MediaItems:', mediaItems);
 
   const combinedResults = [
-    ...(users ?? []).map(user => ({ ...user, type: 'user' as const })), // Use nullish coalescing to default to an empty array if users is undefined
-    ...(mediaItems ?? []).map(mediaItem => ({ ...mediaItem, type: 'mediaItem' as const })) // Do the same for mediaItems
+    ...(users ?? []).map(user => ({ ...user, type: 'user' as const })),
+    ...(mediaItems ?? []).map(mediaItem => ({ ...mediaItem, type: 'mediaItem' as const }))
   ];
 
   // console.log(combinedResults);

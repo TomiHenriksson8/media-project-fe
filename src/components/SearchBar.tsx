@@ -18,7 +18,7 @@ function SearchBar() {
       if (response) {
         setSearchResults(response);
         // console.log(response)
-        console.log(searchResults);
+        // console.log(searchResults);
       }
     } catch (e) {
       console.error((e as Error).message);
@@ -30,7 +30,7 @@ function SearchBar() {
     if (value) {
       fetchMediaAndUserSearchs(value);
     } else {
-      setSearchResults(null); // Clear results if the input is cleared
+      setSearchResults(null);
     }
   };
 

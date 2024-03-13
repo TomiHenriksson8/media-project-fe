@@ -5,6 +5,7 @@ import { useMedia, useUser } from '../hooks/apiHooks';
 import Follow from './Follow';
 import FollowingFollowers from './FollowingFollowers';
 import { useUserContext } from '../hooks/ContextHooks';
+import { MdOutlinePermMedia } from "react-icons/md";
 
 
 const UserDetailPage = () => {
@@ -54,7 +55,7 @@ const UserDetailPage = () => {
           <h2 className="text-lg font-bold text-left mb-3 ml-3">Profile</h2>
           {user && (
             <>
-              <div className="bg-white shadow-md rounded-lg p-6 mb-6 ">
+              <div className="bg-white shadow-md rounded-lg px-3 py-6 md:px-6 mb-6 ">
               <div className="flex flex-row justify-between">
                 <img src='../blank-pfp.png' alt={user.username} className="w-16 h-16  rounded-full border border-gray-400 border-solid"/>
                 <h3 className=" font-bold mb-4  text-[23px]  mt-4">{user.username}</h3>
@@ -69,7 +70,7 @@ const UserDetailPage = () => {
 
               </div>
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-center">Posts</h2>
+            <h2 className=" text-[26px] md:text-[33px] font-bold mb-4 text-center">Posts :</h2>
             <div className={`${posts && posts.length > 0 ? 'grid grid-cols-1 sm:grid-cols-3 gap-4' : 'flex justify-center items-center'}`}>
               {posts && posts.length > 0 ? (
                 posts.map((post) => (
@@ -86,7 +87,10 @@ const UserDetailPage = () => {
                   </Link>
                 ))
               ) : (
-                <div className="text-center text-xl font-semibold w-full">No posts</div>
+                <div className='flex flex-col gap-6 py-5'>
+                  <div className="text-center text-[18px] md:text-[22px] font-semibold w-full">This is user got no Posts</div>
+                  <MdOutlinePermMedia className=' text-[88px] md:text-[122px] w-full text-center mb-20' />
+                </div>
               )}
             </div>
           </div>

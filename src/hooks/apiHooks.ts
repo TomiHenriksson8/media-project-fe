@@ -91,6 +91,33 @@ const useMedia = () => {
     }
   };
 
+  const getLikedMedia = async (userId: number) => {
+    try {
+      const mediaItems = await fetchData<MediaItem[]>(
+        `${import.meta.env.VITE_MEDIA_API}/media/user/liked/${userId}`,
+      );
+      const itemsWithOwner: MediaItemWithOwner[] = await Promise.all(
+        mediaItems.map(async (item) => {
+          try {
+            const owner = await fetchData<User>(
+              `${import.meta.env.VITE_AUTH_API}/users/${item.user_id}`,
+            );
+            return {
+              ...item,
+              username: owner.username,
+            };
+          } catch (error) {
+            console.error('Fetching user failed for user_id:', item.user_id, error);
+            return { ...item, username: 'Unknown' };
+          }
+        }),
+      );
+      return itemsWithOwner;
+    } catch (e) {
+      console.error('getLikedMedia failed', e);
+      return [];
+    }
+  };
 
   const postMedia = (
     file: UploadResponse,
@@ -145,7 +172,7 @@ const useMedia = () => {
     );
   };
 
-  return {mediaArray, getMediaByUserId, followedMediaArray ,postMedia, deleteMedia, getMediaByTitle, getMediaFromFollowed};
+  return {mediaArray, getMediaByUserId, followedMediaArray ,postMedia, deleteMedia, getMediaByTitle, getMediaFromFollowed, getLikedMedia};
 };
 
 const useUser = () => {

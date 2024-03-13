@@ -32,7 +32,6 @@ const MediaRow = ({ item }: {item: MediaItemWithOwner}) => {
         </div>
       </div>
       <div className="media-interaction w-full pt-4 border-t border-gray-300 flex justify-center gap-4 ">
-        <Comments item={item} />
         <Likes item={item} />
       </div>
     </div>

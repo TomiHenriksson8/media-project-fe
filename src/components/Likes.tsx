@@ -124,7 +124,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
           <FaRegHeart />
         )}
       </button>
-      <p className=" font-medium text-gray-900 ml-4 -mt-1">{likeState.count}</p>
+      <p className="font-medium text-gray-900 ml-4 -mt-1">{likeState.count}</p>
     </div>
   );
 };
