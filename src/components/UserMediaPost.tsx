@@ -48,22 +48,22 @@ const UserMediaPost = () => {
 
   return (
     <div className="pt-1 pb-4">
-      <h2 className="text-2xl font-bold mb-4 text-center">Your Posts</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Your Posts</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {posts?.map((post) => (
-          <div key={post.media_id} className="bg-white rounded-lg shadow overflow-hidden max-h-55">
+          <div key={post.media_id} className="bg-white dark:bg-slate-700 dark:text-white rounded-lg shadow overflow-hidden max-h-55">
             <Link key={post.media_id} to='/post' state={post}>
             <div className="p-4 text-center">
-              <h3 className="text-xl font-semibold">{post.title}</h3>
-              <p className="text-gray-600 mt-2">{post.description}</p>
+              <h3 className="text-xl font-semibold ">{post.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">{post.description}</p>
               {post.thumbnail && (
                 <img src={post.thumbnail} alt={post.title} className="mx-auto mt-4 max-w-full max-h-20"/>
                 )}
 
             </div>
           </Link>
-          <div className=" text-center bg-gray-100">
-            <button className="text-white bg-red-500 py-2 px-5 rounded-lg mt-3 mb-2" onClick={() => deleteMediaItem(post.media_id)}>Delete</button>
+          <div className=" text-center bg-gray-100 dark:bg-slate-600">
+            <button className="text-white bg-red-500 dark:bg-red-700 py-2 px-5 rounded-lg mt-3 mb-2" onClick={() => deleteMediaItem(post.media_id)}>Delete</button>
           </div>
           </div>
         ))}

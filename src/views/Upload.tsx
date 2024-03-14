@@ -38,7 +38,7 @@ const Upload = () => {
   const {handleSubmit, handleInputChange, inputs} = useForm(doUpload, initValues);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded m-10">
+    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-slate-700 dark:text-white shadow-md rounded m-10">
         <h1 className="text-2xl font-bold mb-6">Upload</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -48,7 +48,7 @@ const Upload = () => {
                     type="text"
                     id="title"
                     onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  bg-slate-300"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  bg-slate-300 dark:bg-slate-400"
                 />
             </div>
 
@@ -79,7 +79,7 @@ const Upload = () => {
                     rows={5}
                     id="description"
                     onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none bg-slate-300"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none bg-slate-300 dark:bg-slate-400"
                 ></textarea>
             </div>
             <div>
@@ -90,7 +90,7 @@ const Upload = () => {
                     id="file"
                     accept="image/*, video/*"
                     onChange={handleFileChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 dark:file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-100"
                 />
             </div>
             <div className="mt-4">
@@ -107,7 +107,7 @@ const Upload = () => {
             <button
                 type="submit"
                 disabled={file && inputs.title.length > 3 ? false : true}
-                className="mt-4 w-full bg-slate-700 text-white py-2 px-4 rounded hover:bg-slate-600 disabled:bg-slate-200 disabled:text-red-400 disabled:cursor-not-allowed "
+                className="mt-4 w-full bg-slate-700 dark:bg-slate-300 dark:text-black text-white py-2 px-4 rounded hover:bg-slate-600 disabled:bg-slate-200 dark:disabled:bg-slate-300 disabled:text-red-400 disabled:cursor-not-allowed "
             >
                 Upload
             </button>

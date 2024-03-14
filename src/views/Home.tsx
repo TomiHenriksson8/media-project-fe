@@ -17,17 +17,22 @@ const Home = () => {
 
   console.log(followedMediaArray);
 
-  const baseButtonClass = 'bg-sky-200 hover:bg-sky-300 text-black p-3 font-medium transition duration-200 ease-out rounded-lg shadow-sl';
+  const baseButtonClass = 'bg-sky-200 dark:bg-sky-600 hover:bg-sky-300 dark:hover:bg-sky-700 text-black dark:text-white p-3 font-medium transition duration-200 ease-out rounded-lg shadow-sl';
 
-  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-400' : ''}`;
-  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-400' : ''}`;
+  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-400 dark:bg-sky-700' : ''}`;
+  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-400 dark:bg-sky-700' : ''}`;
 
   return (
     <>
-      <div className='flex flex-col space-y-[2px] pt-[2px]'>
-        <button className={forYouButtonClass} onClick={() => setPage(true)}>For You</button>
-        <button className={followingButtonClass} onClick={() => setPage(false)}>Following</button>
-      </div>
+      {user ? (
+        <div className='flex flex-col space-y-[2px] pt-[2px]'>
+          <button className={forYouButtonClass} onClick={() => setPage(true)}>For You</button>
+          <button className={followingButtonClass} onClick={() => setPage(false)}>Following</button>
+        </div>
+      ) : (
+        <></>
+      )}
+
         {page ? (
         <div className="media-container flex flex-col items-center p-10">
           {mediaArray.map((item) => (

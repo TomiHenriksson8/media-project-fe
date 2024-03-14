@@ -35,7 +35,7 @@ const MediaDetailPage = () => {
 
     <>
     {media && (
-      <div className="max-w-4xl mx-auto p-4 bg-gray-300 shadow-lg rounded-lg flex flex-col items-center m-10">
+      <div className="max-w-4xl mx-auto p-4 bg-gray-300 dark:bg-slate-700 dark:text-white shadow-lg rounded-lg flex flex-col items-center m-10">
         <h3 className="text-xl font-bold mb-2 text-center">{media.title}</h3>
         <div className="w-2/3">
           {media.media_type.includes('video') ? (
@@ -49,11 +49,11 @@ const MediaDetailPage = () => {
           <Comments item={media}/>
         </div>
         <p className="mt-4 text-center">{media.description}</p>
-        <p className="text-sm text-gray-600 mt-2 text-center">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 text-center">
           Uploaded at: {new Date(media.created_at).toLocaleString('fi-FI')}
         </p>
-        <p className="text-sm text-gray-600 text-center">Size: {media.filesize}</p>
-        <p className="text-sm text-gray-600 mb-4 text-center">Type: {media.media_type}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300 text-center">Size: {media.filesize}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 text-center">Type: {media.media_type}</p>
         <button
           onClick={() => {
             navigate('/')

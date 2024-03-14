@@ -94,16 +94,12 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
       if (!item || !token) {
         return;
       }
-      // If user has liked the media, delete the like. Otherwise, post the like.
       if (likeState.userLike) {
-        // delete the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
         await deleteLike(likeState.userLike.like_id, token);
-        // other way, do update locally after succesful api call
         likeDispatch({type: 'setLikeCount', count: likeState.count - 1});
         likeDispatch({type: 'like', like: null});
 
       } else {
-        // post the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
         await postLike(item.media_id, token);
         createLikeNoti();
         getLikes();
@@ -117,14 +113,14 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
 
   return (
     <div className="flex  flex-col gap-1" >
-      <button onClick={handleLike} className="text-lg p-3 mt-2  bg-gray-200 rounded-full hover:bg-gray-300 ">
+      <button onClick={handleLike} className="text-lg p-3 mt-2  bg-gray-200 dark:bg-slate-400 rounded-full hover:bg-gray-300 ">
         {likeState.userLike ? (
           <FaHeart className="text-red-500" />
         ) : (
           <FaRegHeart />
         )}
       </button>
-      <p className="font-medium text-gray-900 ml-4 -mt-1">{likeState.count}</p>
+      <p className="font-medium text-gray-900 dark:text-white ml-4  pb-2">{likeState.count}</p>
     </div>
   );
 };

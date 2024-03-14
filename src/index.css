@@ -18,8 +18,20 @@
   color: rgba(28, 26, 26, 0.87);
   background-color: #d6ebed;
 
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+
+.light {
+  background-color: #d6ebed;
+}
+
+
+
+.dark {
+  background-color: #21223b;
 }

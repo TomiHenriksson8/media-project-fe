@@ -24,7 +24,7 @@ const MediaRow = ({ item }: {item: MediaItemWithOwner}) => {
 
   return (
 
-    <div className="media-item w-full max-w-96 mb-7    hover:bg-gray-150 bg-gray-125 rounded-lg shadow-custom flex flex-col items-center" key={item.media_id}>
+    <div className="media-item w-full max-w-96 mb-7 hover:bg-gray-150 dark:hover:bg-slate-600 bg-gray-125 dark:bg-slate-700 dark:text-white rounded-lg shadow-custom flex flex-col items-center" key={item.media_id}>
       <div onClick={handleMediaClick} className="hover:  w-full flex flex-col items-center cursor-pointer">
         <div className="media-header w-full flex items-center pl-5 pr-3 pt-3 cursor-pointer" onClick={handleProfileClick}>
           <img className="profile-icon w-10 rounded-full border border-gray-400 border-solid" src="./blank-pfp.png" alt="Profile" />
@@ -36,7 +36,7 @@ const MediaRow = ({ item }: {item: MediaItemWithOwner}) => {
           <span className='block pb-2'>{item.description}</span>
         </div>
       </div>
-      <div className="media-interaction w-full  border-t border-gray-500 flex justify-center gap-4 bg-gray-125 rounded-b-lg">
+      <div className="media-interaction w-full  border-t border-gray-500 flex justify-center gap-4 bg-gray-125 dark:bg-slate-700 rounded-b-lg">
         <Likes item={item} />
       </div>
     </div>

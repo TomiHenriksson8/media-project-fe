@@ -1,7 +1,7 @@
 // ContextHooks.ts
 import { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
-
+import { ThemeContext } from '../contexts/ThemeContext';
 // Current recommendation is to use custom hook instead of the context directly
 // this way we don't have errors when UserContext is not defined or null (thats why we have the if statement)
 
@@ -14,5 +14,14 @@ const useUserContext = () => {
     return context;
 };
 
+const useThemeContext = () => {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useThemeContext must be used within an ThemeProvider');
+    }
 
-export { useUserContext };
+    return context;
+};
+
+
+export { useUserContext, useThemeContext };

@@ -9,6 +9,11 @@ export type AuthContextType = {
   handleAutoLogin: () => void;
 };
 
+export type ThemeContextType = {
+  theme: string;
+};
+
+
 export type UserSearch = {
   user_id: number;
   username: string;

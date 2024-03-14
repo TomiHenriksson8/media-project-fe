@@ -11,26 +11,29 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Post from "./views/Post";
 import UserDetailPage from "./components/UserDetailPage";
 import MediaDetailPage from "./components/MediaDetailPage";
+import { ThemeProvider } from "./contexts/ThemeContext";
+
 
 const App = () => {
-
   return (
     <Router basename={import.meta.env.BASE_URL}>
-      <UserProvider>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route  path="/notification" element={<ProtectedRoute><Notification /></ProtectedRoute>}/>
-            <Route path="/upload" element={<ProtectedRoute><Upload /></ProtectedRoute>} />
-            <Route path="/post" element={<Post />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/user/:username" element={<UserDetailPage />} />
-            <Route path="/media/:title" element={<MediaDetailPage />} />
-          </Route>
-        </Routes>
-      </UserProvider>
+      <ThemeProvider>
+        <UserProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+              <Route  path="/notification" element={<ProtectedRoute><Notification /></ProtectedRoute>}/>
+              <Route path="/upload" element={<ProtectedRoute><Upload /></ProtectedRoute>} />
+              <Route path="/post" element={<Post />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/user/:username" element={<UserDetailPage />} />
+              <Route path="/media/:title" element={<MediaDetailPage />} />
+            </Route>
+          </Routes>
+        </UserProvider>
+      </ThemeProvider>
     </Router>
   );
 };

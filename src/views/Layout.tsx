@@ -1,11 +1,13 @@
 import {Link, Outlet} from "react-router-dom";
-import { useUserContext } from "../hooks/ContextHooks";
+import { useThemeContext, useUserContext } from "../hooks/ContextHooks";
 import SearchBar from "../components/SearchBar";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { GiSilence } from "react-icons/gi";
 import { useNotification } from "../hooks/apiHooks";
 import { useEffect, useState } from "react";
 import { NotificationResponse } from "../types/MessageTypes";
+import { FaArrowUp } from "react-icons/fa";
+
 
 
 const Layout = () => {
@@ -13,8 +15,7 @@ const Layout = () => {
   const { user ,handleAutoLogin } = useUserContext();
   const { getUnreadNotificationsCount } = useNotification();
   const [noti, setNoti] = useState<NotificationResponse | null>();
-
-
+  
 
 
   if (!user) {
@@ -35,13 +36,21 @@ const Layout = () => {
     }
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+
   useEffect(() => {
     notififications();
   }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="relative p-2 z-10 bg-slate-900">
+      <header className="relative p-2 z-10 bg-slate-900 dark:bg-slate-950">
         <nav className="navbar">
           <ul className="flex flex-wrap justify-between items-center list-none mlg:flex-row flex-col">
             <div className="flex flex-1">
@@ -61,7 +70,7 @@ const Layout = () => {
               {user ? (
           <>
             <Link className="block text-white text-center no-underline" to="/upload">
-              <button className="upload-btn bg-yellow-200 text-slate-700 p-2 rounded-md font-medium hover:bg-yellow-300">Upload</button>
+              <button className="upload-btn bg-yellow-200 dark:bg-yellow-300 text-slate-700 dark:text-slate-800 p-2 rounded-md font-medium hover:bg-yellow-300">Upload</button>
             </Link>
             <Link className="block text-white text-center no-underline relative" to='/notification'>
               {noti && noti.count > 0 && (
@@ -73,7 +82,7 @@ const Layout = () => {
             </Link>
             <div className="flex items-center space-x-4">
               <Link className="block text-white text-center no-underline" to="/profile">
-                <img className="profile-icon w-10 rounded-full" src="./blank-pfp.png" alt="Profile" />
+                <img className="profile-icon w-10 rounded-full" src="/public/blank-pfp.png" alt="Profile" />
               </Link>
               <Link className="block text-white text-center no-underline" to="/logout">
                 <button className="logout-container bg-gray-700 p-2 rounded-md font-medium">Logout</button>
@@ -91,10 +100,13 @@ const Layout = () => {
       </header>
 
       <main className="flex-grow relative">
+        <button onClick={scrollToTop} className="fixed bottom-5 right-5 bg-blue-500 text-white p-3 rounded-full opacity-50 hover:opacity-100 transition-opacity duration-300">
+          <FaArrowUp className="text-[22px]" />
+        </button>
         <Outlet />
       </main>
 
-      <footer className="bg-slate-900 text-white p-10">
+      <footer className="bg-slate-900 dark:bg-slate-950 text-white p-10">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           <div className="flex flex-col">
             <h2 className="text-xl font-bold mb-4">About Us</h2>
