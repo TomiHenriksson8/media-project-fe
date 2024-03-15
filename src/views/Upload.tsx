@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "../hooks/formHooks";
 import { useFile, useMedia } from "../hooks/apiHooks";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +35,17 @@ const Upload = () => {
     }
   };
 
+
+  useEffect(() => {
+    if (uploadStatus.success) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [uploadStatus.success]);
+
+
   const {handleSubmit, handleInputChange, inputs} = useForm(doUpload, initValues);
 
   return (
@@ -55,7 +66,7 @@ const Upload = () => {
             {uploadStatus.success && (
               <>
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                  <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                  <div className="bg-white dark:bg-slate-700 text-black dark:text-white p-6 rounded-lg shadow-lg text-center">
                     <h3 className="text-2xl mb-4">Upload Successful</h3>
                     <p>{uploadStatus.message}</p>
                     <button
@@ -63,7 +74,7 @@ const Upload = () => {
                         setUploadStatus({ success: false, message: '' })
                         navigate('/');
                       }}
-                      className="m-3 rounded-md bg-slate-700 pt-2 pb-2 pl-4 pr-4 text-white font-medium hover:bg-slate-600"
+                      className="m-3 rounded-md bg-slate-700 dark:bg-slate-300 pt-2 pb-2 pl-4 pr-4 text-white dark:text-black font-medium hover:bg-slate-600"
                     >
                       Close
                     </button>

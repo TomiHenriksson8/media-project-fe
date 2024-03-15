@@ -44,9 +44,9 @@ const FollowingFollowers = ({ user, followStatusChanged }: FollowingFollowersPro
   }, [user, followStatusChanged]); // Added followStatusChanged to the dependency array
 
   return (
-    <div className="flex gap-4 pt-2 ">
-      <p>Followers: <span className=" font-semibold">{followerCount ? followerCount.count : "Loading..."}</span></p>
-      <p>Following: <span className="font-semibold">{followingCount ? followingCount.count : "Loading..."}</span></p>
+    <div className="flex gap-4 pt-2 text-black dark:text-white ">
+      <p>Following: <span className=" font-semibold">{followerCount ? followerCount.count : "Loading..."}</span></p>
+      <p>Followers: <span className="font-semibold">{followingCount ? followingCount.count : "Loading..."}</span></p>
     </div>
   );
 };

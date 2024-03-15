@@ -15,7 +15,7 @@ const Layout = () => {
   const { user ,handleAutoLogin } = useUserContext();
   const { getUnreadNotificationsCount } = useNotification();
   const [noti, setNoti] = useState<NotificationResponse | null>();
-  
+  const { theme, toggleTheme } = useThemeContext();
 
 
   if (!user) {
@@ -90,9 +90,19 @@ const Layout = () => {
             </div>
           </>
         ) : (
-          <Link className="block text-slate-700 text-center no-underline" to="/login">
-            <button className="bg-yellow-200 p-2 rounded-md font-medium">Login / Register</button>
-          </Link>
+          <>
+            <button
+              onClick={toggleTheme}
+              className={`${
+              theme === 'dark' ? 'text-yellow-300 bg-slate-900' : 'text-slate-900 bg-yellow-300 rounded-full'
+              } p-2 rounded-full transition-colors duration-300`}
+            >
+              {theme === 'dark' ? 'Light 🌞' : 'Dark 🌜'}
+            </button>
+            <Link className="block text-slate-700 text-center no-underline" to="/login">
+              <button className="bg-yellow-200 p-2 rounded-md font-medium">Login / Register</button>
+            </Link>
+          </>
         )}
             </div>
           </ul>

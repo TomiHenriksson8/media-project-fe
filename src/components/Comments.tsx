@@ -1,10 +1,9 @@
-import {useEffect, useReducer, useRef, useState} from 'react';
+import {useEffect, useReducer, useRef } from 'react';
 import {useUserContext} from '../hooks/ContextHooks';
 import {useForm} from '../hooks/formHooks';
 import {useCommentStore} from '../store';
 import {Comment, MediaItemWithOwner} from '../types/DBTypes';
 import {useComment, useNotification} from '../hooks/apiHooks';
-import { FaRegComment } from "react-icons/fa";
 
 type CommentInitialState = {
   count: number;
@@ -66,7 +65,6 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
   const { createCommentNotification } = useNotification();
   const formRef = useRef<HTMLFormElement>(null);
   const {getCommentsByMediaId, postComment, getCommentCountByMediaId} = useComment();
-  const [showComments, setShowComments] = useState(false);
   const [commentState, commentDispatch] = useReducer(commentReducer, initialState);
 
   const initValues = {comment_text: ''};
@@ -117,10 +115,6 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
     }
   };
 
-  const toggleComments = () => {
-    setShowComments(!showComments);
-  };
-
   const createCommentNoti = async () => {
     const token = localStorage.getItem('token')
     if (!token || !user) {
@@ -141,13 +135,8 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
 
   return (
     <div className='flex  flex-col gap-1'>
-      <button onClick={toggleComments} aria-label="Toggle comments" className="text-lg p-3 mt-2 bg-gray-200 dark:bg-slate-400 rounded-full">
-        <FaRegComment />
-      </button>
-      <p className="font-medium text-gray-900 dark:text-white ml-4 -mt-1">{commentState.count}</p>
-      {showComments && (
+
         <div className='mt-4 p-4 bg-gray-100 rounded-lg shadow w-max md:w-96'>
-          {user && (
             <>
               <h3 className="text-xl font-semibold mb-3">Leave a Comment</h3>
               <form onSubmit={handleSubmit} ref={formRef} className="bg-white rounded-lg p-4 shadow">
@@ -174,7 +163,7 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
                 </div>
               </form>
             </>
-          )}
+          
           {comments.length > 0 && (
             <>
               <h3 className="text-xl font-semibold my-3">Comments</h3>
@@ -196,7 +185,6 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
             </>
           )}
         </div>
-      )}
 </div>
   );
 };

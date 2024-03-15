@@ -17,10 +17,10 @@ const Home = () => {
 
   console.log(followedMediaArray);
 
-  const baseButtonClass = 'bg-sky-200 dark:bg-sky-600 hover:bg-sky-300 dark:hover:bg-sky-700 text-black dark:text-white p-3 font-medium transition duration-200 ease-out rounded-lg shadow-sl';
+  const baseButtonClass = 'bg-sky-200 dark:bg-sky-700 hover:bg-sky-300 dark:hover:bg-sky-800 text-black dark:text-white p-3 font-medium transition duration-200 ease-out rounded-lg shadow-sl';
 
-  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-400 dark:bg-sky-700' : ''}`;
-  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-400 dark:bg-sky-700' : ''}`;
+  const forYouButtonClass = `${baseButtonClass} ${page ? 'bg-sky-400 dark:bg-sky-900' : ''}`;
+  const followingButtonClass = `${baseButtonClass} ${!page ? 'bg-sky-400 dark:bg-sky-900' : ''}`;
 
   return (
     <>

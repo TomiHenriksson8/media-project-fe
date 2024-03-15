@@ -19,19 +19,19 @@ const Profile = () => {
         <div>
 
           <div className="bg-white dark:bg-slate-700 shadow-md rounded-lg p-6 mb-6 text-white">
-            <div className="flex flex-row justify-start gap-6">
-            <img src='./blank-pfp.png' alt={user.username} className="w-20 h-20 rounded-full border border-gray-400 border-solid"/>
-              <h3 className="font-bold mb-4 text-3xl mt-4">{user.username}</h3>
-              <div className="ml-[99px]">
+            <div className="flex flex-row justify-between gap-6">
+              <img src='./blank-pfp.png' alt={user.username} className="w-20 h-20 rounded-full border border-gray-400 border-solid"/>
+              <h3 className="font-bold mb-4 text-3xl mt-4 text-black dark:text-white">{user.username}</h3>
+              <div>
                 <button
-                onClick={toggleTheme}
-                className={`${
-                theme === 'dark' ? 'text-yellow-300 bg-slate-900' : 'text-slate-900 bg-yellow-300 rounded-full'
-                } p-2 rounded-full transition-colors duration-300`}
-                >
-                  {theme === 'dark' ? 'Light 🌞' : 'Dark 🌜'}
-              </button>
-            </div>
+                  onClick={toggleTheme}
+                  className={`${
+                  theme === 'dark' ? 'text-yellow-300 bg-slate-900' : 'text-slate-900 bg-yellow-300 rounded-full'
+                  } p-2 rounded-full transition-colors duration-300`}
+                  >
+                    {theme === 'dark' ? 'Light 🌞' : 'Dark 🌜'}
+                </button>
+              </div>
             </div>
             <FollowingFollowers user={user} followStatusChanged={followStatusChanged} />
             <p className="text-gray-600 dark:text-gray-200 pt-3"><span className="font-medium">Email:</span> {user.email}</p>
