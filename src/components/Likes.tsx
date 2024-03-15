@@ -3,6 +3,7 @@ import { Like, MediaItemWithOwner } from "../types/DBTypes"
 import { useLike, useNotification } from "../hooks/apiHooks";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useUserContext } from "../hooks/ContextHooks";
+import {useNavigate} from "react-router-dom";
 
 type LikeInitialState = {
   count: number;
@@ -40,7 +41,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
   const { getUserLike, getCountByMediaId, postLike, deleteLike } = useLike()
   const { createLikeNotification } = useNotification();
   const { user } = useUserContext();
-
+  const navigate = useNavigate();
     // get user like
   const getLikes = async () => {
     const token = localStorage.getItem('token');
@@ -92,6 +93,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
     try {
       const token = localStorage.getItem('token');
       if (!item || !token) {
+        navigate('/login');
         return;
       }
       if (likeState.userLike) {

@@ -1,11 +1,8 @@
 import {Link, Outlet} from "react-router-dom";
-import { useThemeContext, useUserContext } from "../hooks/ContextHooks";
+import { useNotificationContext, useThemeContext, useUserContext } from "../hooks/ContextHooks";
 import SearchBar from "../components/SearchBar";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { GiSilence } from "react-icons/gi";
-import { useNotification } from "../hooks/apiHooks";
-import { useEffect, useState } from "react";
-import { NotificationResponse } from "../types/MessageTypes";
 import { FaArrowUp } from "react-icons/fa";
 
 
@@ -13,28 +10,14 @@ import { FaArrowUp } from "react-icons/fa";
 const Layout = () => {
 
   const { user ,handleAutoLogin } = useUserContext();
-  const { getUnreadNotificationsCount } = useNotification();
-  const [noti, setNoti] = useState<NotificationResponse | null>();
   const { theme, toggleTheme } = useThemeContext();
+  const { notiCount } = useNotificationContext();
 
 
   if (!user) {
     handleAutoLogin();
   }
 
-  const notififications = async () => {
-    const token = localStorage.getItem('token');
-    if (!token || !user){
-      return
-    }
-    try {
-      const notifications =  await getUnreadNotificationsCount(user.user_id, token);
-      setNoti(notifications);
-    } catch (e) {
-      console.error(e);
-      setNoti(null);
-    }
-  }
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -43,10 +26,6 @@ const Layout = () => {
     });
   };
 
-
-  useEffect(() => {
-    notififications();
-  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -73,10 +52,10 @@ const Layout = () => {
               <button className="upload-btn bg-yellow-200 dark:bg-yellow-300 text-slate-700 dark:text-slate-800 p-2 rounded-md font-medium hover:bg-yellow-300">Upload</button>
             </Link>
             <Link className="block text-white text-center no-underline relative" to='/notification'>
-              {noti && noti.count > 0 && (
-              <div className="bg-red-500 text-white px-2 py-1 rounded-full absolute -top-1 -right-1 text-xs flex items-center justify-center animate-bounce" style={{ minWidth: '20px', height: '20px' }}>
-                {noti.count}
-              </div>
+              {notiCount > 0 && (
+                <div className="bg-red-500 text-white px-2 py-1 rounded-full absolute -top-1 -right-1 text-xs flex items-center justify-center animate-bounce" style={{ minWidth: '20px', height: '20px' }}>
+                  {notiCount}
+                </div>
               )}
               <IoMdNotificationsOutline className="notification-icon text-3xl text-yellow-400 mr-1"/>
             </Link>

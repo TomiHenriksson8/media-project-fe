@@ -136,16 +136,16 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
   return (
     <div className='flex  flex-col gap-1'>
 
-        <div className='mt-4 p-4 bg-gray-100 rounded-lg shadow w-max md:w-96'>
+        <div className='mt-4 p-4 bg-gray-100 dark:bg-slate-500 rounded-lg shadow w-max md:w-96'>
             <>
               <h3 className="text-xl font-semibold mb-3">Leave a Comment</h3>
-              <form onSubmit={handleSubmit} ref={formRef} className="bg-white rounded-lg p-4 shadow">
+              <form onSubmit={handleSubmit} ref={formRef} className="bg-white dark:bg-slate-600 rounded-lg p-4 shadow">
                 <div className="flex flex-col mb-4">
                   <label htmlFor="comment" className="mb-2 font-semibold">
                     Comment
                   </label>
                   <textarea
-                    className="rounded-md border bg-gray-200 border-gray-300 p-3 text-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                    className="rounded-md border bg-gray-200 dark:bg-gray-300 border-gray-300 p-3 text-gray-700 focus:ring-blue-500 focus:border-blue-500"
                     name="comment_text"
                     id="comment"
                     rows={4}
@@ -163,13 +163,13 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
                 </div>
               </form>
             </>
-          
+
           {comments.length > 0 && (
             <>
               <h3 className="text-xl font-semibold my-3">Comments</h3>
               <ul className="space-y-2">
                 {comments.map((comment) => (
-                  <li key={comment.comment_id} className="bg-white rounded-lg p-3 shadow">
+                  <li key={comment.comment_id} className="bg-white dark:bg-gray-300 rounded-lg p-3 shadow">
                     <div className="flex flex-col">
                       <span className="text-gray-600 text-sm">
                         {new Date(comment.created_at!).toLocaleDateString('fi-FI')}
