@@ -15,7 +15,7 @@ const Home = () => {
     }
   }, [user])
 
-  console.log(followedMediaArray);
+  // console.log(followedMediaArray);
 
   const baseButtonClass = 'bg-sky-200 dark:bg-sky-700 hover:bg-sky-300 dark:hover:bg-sky-800 text-black dark:text-white p-3 font-medium transition duration-200 ease-out rounded-lg shadow-sl';
 

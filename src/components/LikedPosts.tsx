@@ -20,7 +20,7 @@ const LikedPosts = () => {
       const likedMedia = await getLikedMedia(user.user_id);
       setLikedMedia(likedMedia);
     } catch (e) {
-      console.log('get liked media error', (e as Error).message);
+      // console.log('get liked media error', (e as Error).message);
     }
   };
 

@@ -35,7 +35,7 @@ const RegisterForm = () => {
   const { getUsernameAvailable, getEmailAvailable } = useUser();
 
   const handleUsernameBlur = async (event: React.SyntheticEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value)
+    // console.log(event.currentTarget.value)
     const result = await getUsernameAvailable(event.currentTarget.value);
     setUsernameAvailable(result.available);
   };
@@ -58,7 +58,7 @@ const RegisterForm = () => {
   }, [registerStatus]);
 
 
-  console.log(usernameAvailable, emailAvailable)
+  // console.log(usernameAvailable, emailAvailable)
   return (
     <div className="flex flex-col   md:w-1/2 pt-10 bg-blue-200 dark:bg-slate-500 text-black dark:text-white">
       <h3 className="text-3xl mb-7 -mt-7">Register</h3>

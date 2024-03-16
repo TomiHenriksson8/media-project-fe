@@ -14,7 +14,7 @@ const MediaDetailPage = () => {
   const getMediaDetails = async (title: string) => {
     try {
       const mediaItem = await getMediaByTitle(title);
-      console.log(mediaItem);
+      // console.log(mediaItem);
       if (mediaItem) {
         setMedia(mediaItem);
       }

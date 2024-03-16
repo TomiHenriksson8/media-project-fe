@@ -97,27 +97,36 @@ const Layout = () => {
 
       <footer className="bg-slate-900 dark:bg-slate-950 text-white p-10">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">About Us</h2>
             <p className="max-w-xs text-sm">Join our community where you can share your moments, discover incredible media from around the world, and connect with creators just like you.</p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">Links</h2>
             <ul>
-              <li><a href="/" className="hover:underline">Home</a></li>
-              <li><a href="/login" className="hover:underline">Login</a></li>
-              <li><a href="/login" className="hover:underline">Register</a></li>
+              {user ? (
+                <>
+                  <li><a href="/" className="hover:underline">Home</a></li>
+                  <li><a href="/profile" className="hover:underline">Profile</a></li>
+                </>
+              ) : (
+                <>
+                  <li><a href="/" className="hover:underline">Home</a></li>
+                  <li><a href="/login" className="hover:underline">Login</a></li>
+                  <li><a href="/login" className="hover:underline">Register</a></li>
+                </>
+              )}
             </ul>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-            <p>Email: info@yoursite.com</p>
+            <p>Email: info@ymediaSharingApp.com</p>
             <p>Phone: (123) 456-7890</p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">Follow Us</h2>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-gray-400">Facebook</a>
@@ -127,7 +136,7 @@ const Layout = () => {
           </div>
         </div>
 
-        <div className="text-center mt-8 text-sm">
+        <div className="text-center mt-8 text-sm pb-2 mlg:pb-0">
           <p>Copyright © 2024 NN. All rights reserved.</p>
         </div>
       </footer>

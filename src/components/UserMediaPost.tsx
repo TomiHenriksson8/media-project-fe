@@ -20,7 +20,7 @@ const UserMediaPost = () => {
     try {
       const media = await getMediaByUserId(user.user_id);
       setPosts(media);
-      console.log(media);
+      // console.log(media);
     } catch (e) {
       console.error((e as Error).message);
     }

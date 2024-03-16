@@ -25,7 +25,7 @@ const Upload = () => {
       const mediaResult = await postMedia(fileResult, inputs, token)
       setUploadStatus({ success: true, message: mediaResult.message });
     } catch (e) {
-      console.log((e as Error).message);
+      // console.log((e as Error).message);
     }
   };
 

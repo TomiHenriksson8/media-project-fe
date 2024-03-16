@@ -53,7 +53,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
       likeDispatch({type: 'like', like: userLike});
     } catch (e) {
       likeDispatch({type: 'like', like: null});
-      console.log('get user like error', (e as Error).message);
+      // console.log('get user like error', (e as Error).message);
     }
   };
 
@@ -65,7 +65,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
       likeDispatch({type: 'setLikeCount', count: countResponse.count});
     } catch (e) {
       likeDispatch({type: 'setLikeCount', count: 0});
-      console.log('get user like error', (e as Error).message);
+      // console.log('get user like error', (e as Error).message);
     }
   };
 
@@ -80,7 +80,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
     try {
       await createLikeNotification(item.user_id, content, item.media_id, token)
     } catch (e) {
-      console.log('cant send noti: ', e)
+      // console.log('cant send noti: ', e)
     }
   };
 
@@ -109,7 +109,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
 
       }
     } catch (e) {
-      console.log('like error', (e as Error).message);
+      // console.log('like error', (e as Error).message);
     }
   };
 

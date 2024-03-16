@@ -30,7 +30,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
             }
             // loginResponse ? (localStorage.setItem('token', loginResponse.token), setUser(loginResponse.user)) : setUser(null);
           } catch (e) {
-            console.log((e as Error).message);
+            // console.log((e as Error).message);
             return false;
         }
     };
@@ -41,7 +41,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
             setUser(null);
             navigate('/');
         } catch (e) {
-            console.log((e as Error).message);
+            // console.log((e as Error).message);
         }
     };
 
@@ -57,7 +57,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 navigate(origin);
             }
         } catch (e) {
-            console.log((e as Error).message);
+            // console.log((e as Error).message);
         }
     };
 

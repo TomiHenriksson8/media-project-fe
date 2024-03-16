@@ -12,7 +12,6 @@ type FollowingFollowersProps = {
 };
 
 const FollowingFollowers = ({ user, followStatusChanged }: FollowingFollowersProps) => {
-  // Removed the redundant destructuring of 'user' from 'props' here
   const [followerCount, setFollowersCount] = useState<Count | undefined>(undefined);
   const [followingCount, setFollowingCount] = useState<Count | undefined>(undefined);
   const { getFollowingCount, getFollowersCount } = useFollow();
@@ -20,7 +19,7 @@ const FollowingFollowers = ({ user, followStatusChanged }: FollowingFollowersPro
   const followingUser = async () => {
     try {
       const following = await getFollowingCount(user.user_id);
-      console.log(following);
+      // console.log(following);
       setFollowingCount(following);
     } catch (e) {
       console.error((e as Error).message);
@@ -30,18 +29,17 @@ const FollowingFollowers = ({ user, followStatusChanged }: FollowingFollowersPro
   const followers = async () => {
     try {
       const followers = await getFollowersCount(user.user_id);
-      console.log(followers);
+      // console.log(followers);
       setFollowersCount(followers);
     } catch (e) {
       console.error((e as Error).message);
     }
   };
 
-  // Using followStatusChanged in the dependency array to re-run the effect when it changes
   useEffect(() => {
     followingUser();
     followers();
-  }, [user, followStatusChanged]); // Added followStatusChanged to the dependency array
+  }, [user, followStatusChanged]);
 
   return (
     <div className="flex gap-4 pt-2 text-black dark:text-white ">
