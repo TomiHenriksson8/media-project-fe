@@ -129,11 +129,12 @@ CREATE TABLE Notifications (
 
 ## Screenshots
 
-![1.](ss/IMG_6972.jpg)
-![2.](ss/IMG_6973.jpg)
-![3.](ss/IMG_6974.jpg)
-![4.](ss/IMG_6975.jpg)
-![5.](ss/IMG_6976.jpg)
-![6.](ss/IMG_6977.jpg)
-![7.](ss/IMG_6978.jpg)
+<img src="ss/IMG_6972.jpg" width="250"/>
+<img src="ss/IMG_6973.jpg" width="250"/>
+<img src="ss/IMG_6974.jpg" width="250"/>
+<img src="ss/IMG_6975.jpg" width="250"/>
+<img src="ss/IMG_6976.jpg" width="250"/>
+<img src="ss/IMG_6977.jpg" width="250"/>
+<img src="ss/IMG_6978.jpg" width="250"/>
+
 
