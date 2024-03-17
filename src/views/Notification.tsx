@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useUserContext } from "../hooks/ContextHooks";
+import { useNotificationContext, useUserContext } from "../hooks/ContextHooks";
 import { useNotification } from "../hooks/apiHooks";
 import { Notifications } from '../types/DBTypes';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ const Notification = () => {
   const { user } = useUserContext();
   const [notifications, setNotifications] = useState<Notifications[]>([]);
   const navigate = useNavigate();
+  const { fetchNotiCount } = useNotificationContext();
 
   const getUserNotifications = async () => {
     const token = localStorage.getItem('token');
@@ -19,7 +20,7 @@ const Notification = () => {
       const notifications = await getNotifications(user.user_id, token);
       setNotifications(notifications);
     } catch (e) {
-      console.log('get notifications error', (e as Error).message);
+      // console.log('get notifications error', (e as Error).message);
     }
   };
 
@@ -30,10 +31,11 @@ const Notification = () => {
     }
     try {
       await deleteNotification(notiId, token);
+      fetchNotiCount();
       setNotifications(currentNotifications =>
         currentNotifications.filter(notification => notification.notification_id !== notiId))
       } catch (e) {
-      console.log('delete notification error', (e as Error).message);
+      // console.log('delete notification error', (e as Error).message);
     }
   };
 
@@ -44,8 +46,9 @@ const Notification = () => {
     }
     try {
       await markNotificationAsRead(notiId, token);
+      fetchNotiCount();
     } catch (e) {
-      console.log('mark notification as read error', (e as Error).message);
+      // console.log('mark notification as read error', (e as Error).message);
     }
   };
 

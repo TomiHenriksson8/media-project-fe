@@ -17,8 +17,8 @@ function SearchBar() {
       const response = await searchMediaAndUsers(searchTerm);
       if (response) {
         setSearchResults(response);
-        // console.log(response)
-        // console.log(searchResults);
+        // // console.log(response)
+        // // console.log(searchResults);
       }
     } catch (e) {
       console.error((e as Error).message);

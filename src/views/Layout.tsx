@@ -1,11 +1,8 @@
 import {Link, Outlet} from "react-router-dom";
-import { useThemeContext, useUserContext } from "../hooks/ContextHooks";
+import { useNotificationContext, useThemeContext, useUserContext } from "../hooks/ContextHooks";
 import SearchBar from "../components/SearchBar";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { GiSilence } from "react-icons/gi";
-import { useNotification } from "../hooks/apiHooks";
-import { useEffect, useState } from "react";
-import { NotificationResponse } from "../types/MessageTypes";
 import { FaArrowUp } from "react-icons/fa";
 
 
@@ -13,28 +10,14 @@ import { FaArrowUp } from "react-icons/fa";
 const Layout = () => {
 
   const { user ,handleAutoLogin } = useUserContext();
-  const { getUnreadNotificationsCount } = useNotification();
-  const [noti, setNoti] = useState<NotificationResponse | null>();
-  
+  const { theme, toggleTheme } = useThemeContext();
+  const { notiCount } = useNotificationContext();
 
 
   if (!user) {
     handleAutoLogin();
   }
 
-  const notififications = async () => {
-    const token = localStorage.getItem('token');
-    if (!token || !user){
-      return
-    }
-    try {
-      const notifications =  await getUnreadNotificationsCount(user.user_id, token);
-      setNoti(notifications);
-    } catch (e) {
-      console.error(e);
-      setNoti(null);
-    }
-  }
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -43,10 +26,6 @@ const Layout = () => {
     });
   };
 
-
-  useEffect(() => {
-    notififications();
-  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -73,10 +52,10 @@ const Layout = () => {
               <button className="upload-btn bg-yellow-200 dark:bg-yellow-300 text-slate-700 dark:text-slate-800 p-2 rounded-md font-medium hover:bg-yellow-300">Upload</button>
             </Link>
             <Link className="block text-white text-center no-underline relative" to='/notification'>
-              {noti && noti.count > 0 && (
-              <div className="bg-red-500 text-white px-2 py-1 rounded-full absolute -top-1 -right-1 text-xs flex items-center justify-center animate-bounce" style={{ minWidth: '20px', height: '20px' }}>
-                {noti.count}
-              </div>
+              {notiCount > 0 && (
+                <div className="bg-red-500 text-white px-2 py-1 rounded-full absolute -top-1 -right-1 text-xs flex items-center justify-center animate-bounce" style={{ minWidth: '20px', height: '20px' }}>
+                  {notiCount}
+                </div>
               )}
               <IoMdNotificationsOutline className="notification-icon text-3xl text-yellow-400 mr-1"/>
             </Link>
@@ -90,9 +69,19 @@ const Layout = () => {
             </div>
           </>
         ) : (
-          <Link className="block text-slate-700 text-center no-underline" to="/login">
-            <button className="bg-yellow-200 p-2 rounded-md font-medium">Login / Register</button>
-          </Link>
+          <>
+            <button
+              onClick={toggleTheme}
+              className={`${
+              theme === 'dark' ? 'text-yellow-300 bg-slate-900' : 'text-slate-900 bg-yellow-300 rounded-full'
+              } p-2 rounded-full transition-colors duration-300`}
+            >
+              {theme === 'dark' ? 'Light 🌞' : 'Dark 🌜'}
+            </button>
+            <Link className="block text-slate-700 text-center no-underline" to="/login">
+              <button className="bg-yellow-200 p-2 rounded-md font-medium">Login / Register</button>
+            </Link>
+          </>
         )}
             </div>
           </ul>
@@ -108,27 +97,36 @@ const Layout = () => {
 
       <footer className="bg-slate-900 dark:bg-slate-950 text-white p-10">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">About Us</h2>
             <p className="max-w-xs text-sm">Join our community where you can share your moments, discover incredible media from around the world, and connect with creators just like you.</p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">Links</h2>
             <ul>
-              <li><a href="/" className="hover:underline">Home</a></li>
-              <li><a href="/login" className="hover:underline">Login</a></li>
-              <li><a href="/login" className="hover:underline">Register</a></li>
+              {user ? (
+                <>
+                  <li><a href="/" className="hover:underline">Home</a></li>
+                  <li><a href="/profile" className="hover:underline">Profile</a></li>
+                </>
+              ) : (
+                <>
+                  <li><a href="/" className="hover:underline">Home</a></li>
+                  <li><a href="/login" className="hover:underline">Login</a></li>
+                  <li><a href="/login" className="hover:underline">Register</a></li>
+                </>
+              )}
             </ul>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-            <p>Email: info@yoursite.com</p>
+            <p>Email: info@ymediaSharingApp.com</p>
             <p>Phone: (123) 456-7890</p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-2 mlg:pb-0">
             <h2 className="text-xl font-bold mb-4">Follow Us</h2>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-gray-400">Facebook</a>
@@ -138,7 +136,7 @@ const Layout = () => {
           </div>
         </div>
 
-        <div className="text-center mt-8 text-sm">
+        <div className="text-center mt-8 text-sm pb-2 mlg:pb-0">
           <p>Copyright © 2024 NN. All rights reserved.</p>
         </div>
       </footer>

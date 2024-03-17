@@ -14,7 +14,7 @@ const MediaDetailPage = () => {
   const getMediaDetails = async (title: string) => {
     try {
       const mediaItem = await getMediaByTitle(title);
-      console.log(mediaItem);
+      // console.log(mediaItem);
       if (mediaItem) {
         setMedia(mediaItem);
       }
@@ -44,9 +44,11 @@ const MediaDetailPage = () => {
             <img src={media.thumbnail} alt={media.title} className="w-full h-auto rounded" />
           )}
         </div>
-        <div className="comment-like-container flex flex-row gap-2">
-          <Likes item={media}/>
-          <Comments item={media}/>
+        <div className="w-full flex flex-col items-center">
+        <div className=" -top-6 transform translate-y-0 flex justify-center items-center w-full pb-1">
+            <Likes item={media} />
+        </div>
+          <Comments item={media} />
         </div>
         <p className="mt-4 text-center">{media.description}</p>
         <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 text-center">

@@ -14,6 +14,7 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
   const { user: currentUser } = useUserContext();
   const { createFollowNotification} = useNotification();
 
+
   const followUser = async () => {
     const token = localStorage.getItem('token');
     if (!token || !currentUser) {
@@ -72,7 +73,7 @@ const Follow = ({ user, onFollowStatusChange }: FollowProps) => {
 
   useEffect(() => {
     checkFollow();
-  }, []);
+  }, [user.user_id]);
 
   return (
     <>

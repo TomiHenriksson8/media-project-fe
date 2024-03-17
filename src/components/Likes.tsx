@@ -3,6 +3,7 @@ import { Like, MediaItemWithOwner } from "../types/DBTypes"
 import { useLike, useNotification } from "../hooks/apiHooks";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useUserContext } from "../hooks/ContextHooks";
+import {useNavigate} from "react-router-dom";
 
 type LikeInitialState = {
   count: number;
@@ -40,7 +41,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
   const { getUserLike, getCountByMediaId, postLike, deleteLike } = useLike()
   const { createLikeNotification } = useNotification();
   const { user } = useUserContext();
-
+  const navigate = useNavigate();
     // get user like
   const getLikes = async () => {
     const token = localStorage.getItem('token');
@@ -52,7 +53,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
       likeDispatch({type: 'like', like: userLike});
     } catch (e) {
       likeDispatch({type: 'like', like: null});
-      console.log('get user like error', (e as Error).message);
+      // console.log('get user like error', (e as Error).message);
     }
   };
 
@@ -64,7 +65,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
       likeDispatch({type: 'setLikeCount', count: countResponse.count});
     } catch (e) {
       likeDispatch({type: 'setLikeCount', count: 0});
-      console.log('get user like error', (e as Error).message);
+      // console.log('get user like error', (e as Error).message);
     }
   };
 
@@ -79,7 +80,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
     try {
       await createLikeNotification(item.user_id, content, item.media_id, token)
     } catch (e) {
-      console.log('cant send noti: ', e)
+      // console.log('cant send noti: ', e)
     }
   };
 
@@ -92,6 +93,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
     try {
       const token = localStorage.getItem('token');
       if (!item || !token) {
+        navigate('/login');
         return;
       }
       if (likeState.userLike) {
@@ -107,7 +109,7 @@ const Likes = ({item}: {item : MediaItemWithOwner}) => {
 
       }
     } catch (e) {
-      console.log('like error', (e as Error).message);
+      // console.log('like error', (e as Error).message);
     }
   };
 

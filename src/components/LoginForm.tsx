@@ -1,7 +1,7 @@
 import {useForm} from "../hooks/formHooks";
 import {Credentials} from "../types/LocalTypes";
 import { useUserContext } from "../hooks/ContextHooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LoginForm = () => {
   const initValues: Credentials = {username: '', password: ''};
@@ -9,12 +9,21 @@ const LoginForm = () => {
   const [popup, setPopup] = useState(false);
 
   const doSubmit = async () => {
-
       const success =  await handleLogin(inputs as Credentials);
       if (!success) {
         setPopup(true);
       }
-};
+  };
+
+  useEffect(() => {
+    if (popup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+  }, [setPopup]);
+
+
 
   const {handleSubmit, handleInputChange, inputs} = useForm(doSubmit, initValues);
 
@@ -37,12 +46,12 @@ const LoginForm = () => {
         {popup && (
           <>
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div className="bg-white dark:bg-slate-700 dark:text-white text-black p-6 rounded-lg shadow-lg text-center">
               <h3 className="text-2xl mb-4">Login Failed!</h3>
               <p> Incorrect username or password </p>
               <button
                 onClick={() => setPopup(false)}
-                className="m-3 rounded-md bg-slate-700 pt-2 pb-2 pl-4 pr-4 text-white font-medium hover:bg-slate-600"
+                className="m-3 rounded-md bg-slate-700 dark:bg-slate-300 pt-2 pb-2 pl-4 pr-4 text-white dark:text-black font-medium hover:bg-slate-600 dark:hover:bg-slate-400"
               >
               Close
               </button>

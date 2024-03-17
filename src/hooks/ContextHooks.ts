@@ -2,6 +2,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { ThemeContext } from '../contexts/ThemeContext';
+import { NotificationContext } from '../contexts/NotificationContext';
 // Current recommendation is to use custom hook instead of the context directly
 // this way we don't have errors when UserContext is not defined or null (thats why we have the if statement)
 
@@ -23,5 +24,14 @@ const useThemeContext = () => {
     return context;
 };
 
+const useNotificationContext = () => {
+    const context = useContext(NotificationContext);
+    if (!context) {
+        throw new Error('useNotificationContext must be used within an NotificationProvider');
+    }
 
-export { useUserContext, useThemeContext };
+    return context;
+};
+
+
+export { useUserContext, useThemeContext, useNotificationContext };

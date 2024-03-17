@@ -35,7 +35,7 @@ const RegisterForm = () => {
   const { getUsernameAvailable, getEmailAvailable } = useUser();
 
   const handleUsernameBlur = async (event: React.SyntheticEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.value)
+    // console.log(event.currentTarget.value)
     const result = await getUsernameAvailable(event.currentTarget.value);
     setUsernameAvailable(result.available);
   };
@@ -58,9 +58,9 @@ const RegisterForm = () => {
   }, [registerStatus]);
 
 
-  console.log(usernameAvailable, emailAvailable)
+  // console.log(usernameAvailable, emailAvailable)
   return (
-    <div className="flex flex-col   md:w-1/2 pt-10 bg-blue-200 dark:bg-slate-500 text-white">
+    <div className="flex flex-col   md:w-1/2 pt-10 bg-blue-200 dark:bg-slate-500 text-black dark:text-white">
       <h3 className="text-3xl mb-7 -mt-7">Register</h3>
       <form onSubmit={handleSubmit}  className="flex flex-col text-center">
         <div className="flex w-4/5">
@@ -82,14 +82,14 @@ const RegisterForm = () => {
         {registerStatus.success === false && popup && (
         <>
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white  p-6 rounded-lg shadow-lg text-center">
+            <div className="bg-white dark:bg-slate-700 text-black dark:text-white p-6 rounded-lg shadow-lg text-center">
               <h3 className="text-2xl mb-4">Registration Failed!</h3>
               <p>{registerStatus.message}</p>
               <button
                 onClick={() => setPopup(false)}
-                className="m-3 rounded-md bg-slate-700 pt-2 pb-2 pl-4 pr-4 text-white font-medium hover:bg-slate-600"
+                className="m-3 rounded-md bg-slate-700 dark:bg-slate-300 pt-2 pb-2 pl-4 pr-4 text-white dark:text-black font-medium hover:bg-slate-600 dark:hover:bg-slate-400"
               >
-              Close
+                Close
               </button>
             </div>
           </div>

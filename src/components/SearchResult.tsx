@@ -3,6 +3,7 @@ import { MediaItemSearch, UserSearch } from '../types/LocalTypes';
 import { useNavigate } from 'react-router-dom';
 import { FaUserAlt } from "react-icons/fa";
 import { AiFillPicture } from "react-icons/ai";
+import {useUserContext} from '../hooks/ContextHooks';
 
 type SearchResultType = UserSearch | MediaItemSearch;
 
@@ -13,10 +14,16 @@ type SearchResultsListProps = {
 export const SearchResult: React.FC<SearchResultsListProps> = ({ result }) => {
   const navigate = useNavigate();
   const isUser = result.type === 'user';
+  const { user } = useUserContext();
 
   const handleResultClick = () => {
     if (isUser) {
-      navigate(`/user/${result.username}`);
+      if (user?.username === result.username) {
+        navigate('/profile');
+        return;
+      } else {
+        navigate(`/user/${result.username}`);
+      }
     } else {
       navigate(`/media/${result.title}`);
     }
