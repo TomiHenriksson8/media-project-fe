@@ -45,6 +45,8 @@
 
 ## DB
 
+![db](ss/dbd.png)
+
 ```sql
 DROP DATABASE IF EXISTS MediaSharingApp;
 CREATE DATABASE MediaSharingApp;
