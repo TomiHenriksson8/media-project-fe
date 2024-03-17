@@ -1,16 +1,6 @@
 
 # MediaSharingApp
 
-## Screenshots
-
-![1.](ss/IMG_6972.jpg)
-![2.](ss/IMG_6973.jpg)
-![3.](ss/IMG_6974.jpg)
-![4.](ss/IMG_6975.jpg)
-![5.](ss/IMG_6976.jpg)
-![6.](ss/IMG_6977.jpg)
-![7.](ss/IMG_6978.jpg)
-
 
 ## APP
 
@@ -31,9 +21,9 @@
 
 ## Toimminnalisuudet
 
-* Kirjautuminen, rekisteröinti sekä ulos kirjautuminen
+* Kirjautuminen, rekisteröinti sekä ulos kirjautuminen.
 
-* Median lisääminen
+* Median lisääminen.
 
 * Mediaa pystyy tykkäämään sekä kommentoimaan.
 
@@ -134,6 +124,14 @@ CREATE TABLE Notifications (
 
 -
 
--
 
--
+## Screenshots
+
+![1.](ss/IMG_6972.jpg)
+![2.](ss/IMG_6973.jpg)
+![3.](ss/IMG_6974.jpg)
+![4.](ss/IMG_6975.jpg)
+![5.](ss/IMG_6976.jpg)
+![6.](ss/IMG_6977.jpg)
+![7.](ss/IMG_6978.jpg)
+
